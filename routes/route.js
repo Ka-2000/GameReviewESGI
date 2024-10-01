@@ -7,18 +7,18 @@ const routeur = express.Router();
 
 
 var ctrlAccueil = require('../controllers/ControlAccueil')
-var ctrlMedecin = require('../controllers/ControlMedecins');
+/* var ctrlMedecin = require('../controllers/ControlMedecins');
 var ctrlMutuelle = require('../controllers/ControlMutuelles');
 var ctrlMaladie = require('../controllers/ControlMaladies');
 var ctrlPatient = require('../controllers/ControlPatients')
 var ctrlOrdonnance = require('../controllers/ControlOrdonnances')
-var ctrlStock = require('../controllers/ControlStocks')
+var ctrlStock = require('../controllers/ControlStocks') */
 
 // Partie Accueil
 routeur.get('/accueil', ctrlAccueil.afficher_accueil)
 .get('/', ctrlAccueil.afficher_accueil)
 
-// Partie Medecin 
+/* // Partie Medecin 
 routeur.get('/liste_medecins',ctrlMedecin.afficher_liste_medecins)
 .get('/formulaire_medecin', ctrlMedecin.afficher_formulaire_medecin)
 .get('/fiche_medecin/:id', ctrlMedecin.afficher_fiche_medecin)
@@ -45,7 +45,7 @@ routeur.get('/liste_pathologies', ctrlMaladie.afficher_liste_pathologies)
 // Partie patient 
 routeur.get('/liste_patients', ctrlPatient.afficher_liste_patients)
 .get('/addPatient', ctrlPatient.afficher_formulaire_patient)
-/* .get('/fiche_patient/:id', ctrlPatient.afficher_fiche_patient) */
+/* .get('/fiche_patient/:id', ctrlPatient.afficher_fiche_patient) 
 .post('/formulaire_patient', ctrlPatient.executer_formulaire_patient)
 .post('/fiche_patient/:id', ctrlPatient.update_formulaire_patient)
 .post('/delete_patient/:id', ctrlPatient.delete_fiche_patient) 
@@ -64,6 +64,6 @@ routeur.get('/liste_stocks', ctrlStock.afficher_liste_stocks)
 .get('/fiche_stock/:id', ctrlStock.afficher_fiche_stock)
 .post('/formulaire_stock', ctrlStock.executer_formulaire_stock)
 .post('/fiche_stock/:id', ctrlStock.update_formulaire_stock)
-.post('/delete_stock/:id', ctrlStock.delete_fiche_stock)
+.post('/delete_stock/:id', ctrlStock.delete_fiche_stock) */
 
 module.exports = routeur;

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PHARMACIE SAUTEUHZ</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
+  <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <!-- <link rel="icon" href="pharmacie_sauteuhz_teste/public/images/iconPharmacie.png"> -->
+</head>
+
+<body>
+  <nav class="navbar navbar-light" style="background-color: #78E08F;">
+    <a class="navbar-brand" href="http://localhost:3000/accueil">
+      <img src="images/iconPharmacie.png" width="30" height="30" class="logoheader" class="d-inline-block align-top" alt="logoHeader"> PHARMACIE SAUTEUHZ 
+    </a>      
+    
+      <div id="mySidenav" class="sidenav">    
+        <a id="closeBtn" href="#" class="close">×</a>
+        <ul>
+          <hr>
+          <a href="http://localhost:3000/accueil">Accueil</a>
+          <hr>
+          <a href="http://localhost:3000/addOrdonnance">Déposer une ordonnance</a>
+          <hr>
+          <a href="http://localhost:3000/addPatient">Ajouter un nouveau patient</a>
+          <hr>
+          <a href="http://localhost:3000/addMedicament">Ajouter un médicament en stock</a>
+          <hr>
+          <a href="http://localhost:3000/consultOrdonnance">Consulter une ordonnance</a>
+          <hr>
+          <a href="http://localhost:3000/consultListePatient">Consulter la fiche d'un patient</a>
+          <hr>
+          <a href="http://localhost:3000/consultStock">Consulter les stocks</a><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+          <hr>
+          <a href="http://localhost:3000/nousContacter">Nous contacter</a>
+        </ul>
+      </div> 
+      
+      <a href="#" id="openBtn">
+        <span class="burger-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </a>
+
+      
+      <!------------------- MENU BURGER -------------------------->
+      <script>
+        var sidenav = document.getElementById("mySidenav");
+        var openBtn = document.getElementById("openBtn");
+        var closeBtn = document.getElementById("closeBtn");
+        
+        openBtn.onclick = openNav;
+        closeBtn.onclick = closeNav;
+        
+        /* Set the width of the side navigation to 250px */
+        function openNav() {
+          sidenav.classList.add("active");
+        }
+        
+        /* Set the width of the side navigation to 0 */
+        function closeNav() {
+          sidenav.classList.remove("active");
+        }
+      </script>
+      <!-- ---------------------------------------------------- -->
+      
+    </div>
+  </nav>
+</body>
