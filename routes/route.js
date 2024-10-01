@@ -6,9 +6,9 @@ const express = require('express');
 const routeur = express.Router();
 
 
-var ctrlAccueil = require('../controllers/ControlAccueil')
-/* var ctrlMedecin = require('../controllers/ControlMedecins');
-var ctrlMutuelle = require('../controllers/ControlMutuelles');
+var ctrlAccueil = require('../controllers/ControlAccueil');
+var ctrlRecherche = require('../controllers/ControlRecherche');
+/*var ctrlMutuelle = require('../controllers/ControlMutuelles');
 var ctrlMaladie = require('../controllers/ControlMaladies');
 var ctrlPatient = require('../controllers/ControlPatients')
 var ctrlOrdonnance = require('../controllers/ControlOrdonnances')
@@ -18,9 +18,10 @@ var ctrlStock = require('../controllers/ControlStocks') */
 routeur.get('/accueil', ctrlAccueil.afficher_accueil)
 .get('/', ctrlAccueil.afficher_accueil)
 
-/* // Partie Medecin 
-routeur.get('/liste_medecins',ctrlMedecin.afficher_liste_medecins)
-.get('/formulaire_medecin', ctrlMedecin.afficher_formulaire_medecin)
+// Partie Recherche
+routeur.get('/recherche', ctrlRecherche.afficher_recherche)
+.get('/', ctrlRecherche.afficher_recherche)
+/* get('/formulaire_medecin', ctrlMedecin.afficher_formulaire_medecin)
 .get('/fiche_medecin/:id', ctrlMedecin.afficher_fiche_medecin)
 .post('/formulaire_medecin', ctrlMedecin.executer_formulaire_medecin)
 .post('/fiche_medecin/:id', ctrlMedecin.update_formulaire_medecin)
