@@ -131,11 +131,18 @@
 </div>
 
 <div class="reviews">
-    <h2 class="section-title">Avis 3.7 ★ (42)</h2>
+    <h2 class="section-title">Avis <%= avisJeu %> ★ (<%= nbAvisJeu %>)</h2>
     <div class="review">
         <h3>Nom de l'utilisateur</h3>
-        <p class="stars">★★★★☆</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tempus sapien nec quam consequat, in sollicitudin sem viverra.</p>
+        <p class="stars">
+            <% for (let i = 0; i < avis.stars; i++) { %>
+            ★
+            <% } %>
+            <% for (let i = avis.stars; i < 5; i++) { %>
+            ☆
+            <% } %>
+        </p></p>
+        <p><%= descriptionJeu %></p>
     </div>
     <div class="review">
         <h3>Nom de l'utilisateur</h3>
