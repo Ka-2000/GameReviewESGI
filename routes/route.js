@@ -11,6 +11,9 @@ var ctrlAccueil = require('../controllers/ControlAccueil');
 var ctrlRecherche = require('../controllers/ControlRecherche');
 var ctrlInfosJeu = require('../controllers/ControlInfosJeu');
 const ControlInfosJeu = require('../controllers/ControlInfosJeu');
+var ctrlAuth = require('../controllers/authController');
+
+
 
 
 // Partie Accueil
@@ -18,8 +21,14 @@ routeur.get('/accueil', ctrlAccueil.afficher_accueil)
 .get('/', ctrlAccueil.afficher_accueil)
 
 routeur.get('/connexion', (req, res) => {
-    res.render('connexion');  // Rendre le fichier connexion.ejs depuis le dossier 'views'
+    res.render('connexion'); // Rendre le fichier connexion.ejs depuis le dossier 'views'
 });
+
+// Route pour traiter la connexion
+
+routeur.post('/connexion', ctrlAuth.login)
+.post('/connexion', ctrlAuth.login);  // Utilisez login ici
+
 
 routeur.get('/register', (req, res) => {
     res.render('register');  // Rendre le fichier connexion.ejs depuis le dossier 'views'

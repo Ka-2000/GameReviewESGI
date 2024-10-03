@@ -1,63 +1,58 @@
-const mysql = require('mysql')
+const mysql = require('mysql');
 const express = require('express');
 const ejs = require('ejs');
-const path     = require('path')  
-
-const iniparser = require('iniparser')
+const path = require('path');  
 const routeur = require('./routes/route.js');
+const ctrlAuth = require('./controllers/authController'); // Assure-toi d'importer le contrôleur
 
+// Initialiser l'application
+let app = express();
 
+// Configuration du moteur de vue
+app.set('view engine', 'ejs');
+app.set("views", path.resolve(__dirname, 'views'));
 
-// activer les dépendances pour Express et EJS
-let app = express()
-app.set('view engine', 'ejs')
-app.use(express.static('views'))
-app.use(express.static('public'))
+// Middleware pour gérer les fichiers statiques
+app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.set("views",path.resolve(__dirname,'views'))
+// Middleware pour servir les fichiers CSS de Bootstrap
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
-
-// activer le middleware et lancer l'application sur le port 3000
-app.use(express.json())
-app.listen(3000, () => console.log('Le serveur GameReview est prêt.'))
-
- // utiliser les routeurs
+// Routes principales
 app.get('/', (req, res) => {
-    res.send('Le serveur GameReview est actif !')
-})
+    console.log('Page d\'accueil demandée');
+    res.send('Le serveur GameReview est actif !');
+});
 
+app.get('/accueil', (req, res) => {
+    res.render('accueil');
+});
 
-//Afficher page accueil
-.get('/accueil', function(req, res) {
-    res.render('accueil')
-    })
+app.get('/recherche', (req, res) => {
+    res.render('recherche');
+});
 
+app.get('/infosJeu', (req, res) => {
+    res.render('infosJeu');
+});
 
-//Afficher vue ...
-.get('/recherche', function(req, res) {
-    res.render('recherche')
-    })
-
-//Afficher vue ...
-.get('/infosJeu', function(req, res) {
-    res.render('infosJeu')
-    })
-    
-
-//Afficher vue ...
-.get('/...', function(req, res) {
-    res.render('...')
-    })
-
-.get('/connexion', function(req, res) {
+app.get('/connexion', (req, res) => {
     res.render('connexion');
-})
+});
 
-.get('/register', function(req, res) {
+// ** Ajout de la route POST ici **
+app.post('/connexion', ctrlAuth.login); // Gère les soumissions de formulaire de connexion
+
+app.get('/register', (req, res) => {
     res.render('register');
 });
 
+// Utiliser le routeur pour d'autres routes
+app.use('/GameReviewESGI', routeur);
 
-app.use('/GameReviewESGI', routeur)
+// Lancer l'application sur le port 3000
+app.listen(3000, () => {
+    console.log('Le serveur GameReview est prêt sur le port 3000.');
+});
