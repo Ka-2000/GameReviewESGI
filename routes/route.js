@@ -20,6 +20,12 @@ var ctrlAuth = require('../controllers/authController');
 routeur.get('/accueil', ctrlAccueil.afficher_accueil)
 .get('/', ctrlAccueil.afficher_accueil)
 
+routeur.get('/accueil', (req, res) => {
+    const user = req.session.user; // Récupérer l'utilisateur de la session
+    res.render('accueil', { user }); // Passer l'utilisateur à la vue
+});
+
+
 routeur.get('/connexion', (req, res) => {
     res.render('connexion'); // Rendre le fichier connexion.ejs depuis le dossier 'views'
 });

@@ -20,15 +20,32 @@ app.use(express.json());
 // Middleware pour servir les fichiers CSS de Bootstrap
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
+
+
+const session = require('express-session');
+
+app.use(session({
+    secret: 'esgi', // Valeur vide ou à remplacer par une chaîne aléatoire
+    resave: false,
+    saveUninitialized: true,
+    cookie: { 
+        secure: false, // Mettez à true si vous utilisez HTTPS
+        maxAge: 20 * 60 * 1000 // Durée de la session en millisecondes (20 minutes)
+    }
+}));
 // Routes principales
 app.get('/', (req, res) => {
     console.log('Page d\'accueil demandée');
     res.send('Le serveur GameReview est actif !');
 });
 
+
+
 app.get('/accueil', (req, res) => {
-    res.render('accueil');
+    const user = req.session.user; // Récupérer l'utilisateur de la session
+    res.render('accueil', { user }); // Passer l'utilisateur à la vue
 });
+
 
 app.get('/recherche', (req, res) => {
     res.render('recherche');

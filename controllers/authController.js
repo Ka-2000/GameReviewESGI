@@ -24,13 +24,19 @@ exports.login = (req, res) => {
 
         if (results.length > 0) {
             // Authentification réussie
-            return res.status(200).json({ message: 'Utilisateur authentifié !'});
+            req.session.user = { 
+                username, 
+                is_connected: true // Ajoutez l'indicateur de connexion
+            };
+            console.log(`Session créée pour l'utilisateur : ${username}`);
+            return res.status(200).json({ message: 'Utilisateur authentifié !' });
         } else {
             // Authentification échouée
-            return res.status(401).json({ message: 'Nom d\'utilisateur ou mot de passe incorrect'});
+            return res.status(401).json({ message: 'Nom d\'utilisateur ou mot de passe incorrect' });
         }
     });
 };
+
 exports.register = (req, res) => {
     const { pseudo_user, mdp_user, mail_user, url_image_user, is_admin } = req.body;
 
