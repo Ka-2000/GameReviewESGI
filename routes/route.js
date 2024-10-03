@@ -9,10 +9,9 @@ const path = require('path');
 
 var ctrlAccueil = require('../controllers/ControlAccueil');
 var ctrlRecherche = require('../controllers/ControlRecherche');
+var ControlMonCompte = require('../controllers/ControlMonCompte');
 const ControlInfosJeu = require('../controllers/ControlInfosJeu');
 var ctrlAuth = require('../controllers/authController');
-
-
 
 
 // Partie Accueil
