@@ -1,0 +1,150 @@
+<%- include('header') %>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recherche de Jeu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        /* Barre de recherche */
+        .search-bar {
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-bar input {
+            width: 85%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .search-bar button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .search-bar button img {
+            width: 25px;
+            height: 25px;
+        }
+
+        /* Section des filtres */
+        .filter-section {
+            background-color: #4c4c4c;
+            color: white;
+            padding: 20px;
+            position: relative;
+            width: 100%;
+            display: none;
+            top: 0;
+        }
+
+        .filter-section h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .filter-section button {
+            background-color: #ff6600;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        /* Résultats */
+        .results-section {
+            padding: 20px;
+            background-color: white;
+            margin-top: 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .result-item img {
+            width: 50px;
+            height: 50px;
+            margin-right: 20px;
+        }
+
+        .result-item h3 {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .result-item p {
+            font-size: 12px;
+            color: #666;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Barre de recherche -->
+<div class="search-bar">
+    <input type="text" id="search-input" placeholder="Rechercher un jeu">
+    <button onclick="toggleFilters()">
+        <img src="filtre.png" alt="Filtre">
+    </button>
+</div>
+
+<!-- Section des filtres -->
+<div class="filter-section" id="filters">
+    <h3>Filtres</h3>
+    <button>Catégories</button> <!-- Ajout de menu déroulant -->
+    <button>Plateformes</button> <!-- Ajout de menu déroulant -->
+    <button>Avis moyen</button> <!-- Ajout de menu déroulant -->
+    <button>Nouveauté</button> <!-- Ajout de cases à cocher -->
+</div>
+
+<!-- Section des résultats -->
+<div class="results-section" id="results">
+    <h2>Résultats</h2>
+    <p id="result-count">X trouvés</p>
+
+    <!-- Exemple de résultat -->
+    <div class="result-item">
+        <img src="game_icon.png" alt="Icone du jeu">
+        <div>
+            <h3>titre_jeu</h3>
+            <p>description_jeu</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleFilters() {
+        var filterSection = document.getElementById('filters');
+        if (filterSection.style.display === 'block') {
+            filterSection.style.display = 'none';
+        } else {
+            filterSection.style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>
