@@ -1,134 +1,145 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Page d'Inscription</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        h1 {
-            text-align: center;
-            margin-top: 50px;
-        }
-        form {
-            width: 300px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border: 2px solid orange;
-        }
-        label {
-            font-weight: bold;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0 20px -10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        input[type="submit"] {
-            background-color: orange;
-            color: #fff;
-            cursor: pointer;
-            margin: 0 auto;
-            display: block;
-        }
-        input[type="submit"]:hover {
-            background-color: darkorange;
-        }
-        p {
-            color: red; /* Couleur des messages d'erreur */
-            text-align: center;
-        }
-        .register {
-            text-align: center;
-            color: #000;
-        }
-        .cookie {
-            text-align: center;
-            color: #667;
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            z-index: 999;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+      h1 {
+        text-align: center;
+        margin-top: 50px;
+      }
+      form {
+        width: 300px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border: 2px solid orange;
+      }
+      label {
+        font-weight: bold;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0 20px -10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      input[type="submit"] {
+        background-color: orange;
+        color: #fff;
+        cursor: pointer;
+        margin: 0 auto;
+        display: block;
+      }
+      input[type="submit"]:hover {
+        background-color: darkorange;
+      }
+      p {
+        color: red; /* Couleur des messages d'erreur */
+        text-align: center;
+      }
+      .register {
+        text-align: center;
+        color: #000;
+      }
+      .cookie {
+        text-align: center;
+        color: #667;
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        z-index: 999;
+      }
     </style>
     <script>
-        function showCookiePopup() {
-            document.getElementById("cookiePopup").style.display = "block";
-        }
-        function hideCookiePopup() {
-            document.getElementById("cookiePopup").style.display = "none";
-        }
+      function showCookiePopup() {
+        document.getElementById("cookiePopup").style.display = "block";
+      }
+      function hideCookiePopup() {
+        document.getElementById("cookiePopup").style.display = "none";
+      }
 
-        // Fonction pour vérifier si les mots de passe correspondent
-        function validatePasswords(event) {
-            const password = document.getElementById("password").value;
-            const passwordConfirmed = document.getElementById("password_confirmed").value;
+      // Fonction pour vérifier si les mots de passe correspondent
+      function validatePasswords(event) {
+        const password = document.getElementById("password").value;
+        const passwordConfirmed =
+          document.getElementById("password_confirmed").value;
 
-            if (password !== passwordConfirmed) {
-                // Si les mots de passe ne correspondent pas, on affiche un message d'alerte
-                alert("Les mots de passe ne correspondent pas.");
-                // On empêche l'envoi du formulaire
-                event.preventDefault();
-            }
+        if (password !== passwordConfirmed) {
+          // Si les mots de passe ne correspondent pas, on affiche un message d'alerte
+          alert("Les mots de passe ne correspondent pas.");
+          // On empêche l'envoi du formulaire
+          event.preventDefault();
         }
+      }
     </script>
-</head>
-<body>
-    <button onclick="window.location.href='/accueil'" style="position: absolute; top: 10px; left: 10px;">Accueil</button>
+  </head>
+  <body>
+    <button
+      onclick="window.location.href='/accueil'"
+      style="position: absolute; top: 10px; left: 10px"
+    >
+      Accueil
+    </button>
 
     <h1>Page d'Inscription</h1>
 
     <!-- Affichage des messages d'erreur ou de succès -->
     <% if (typeof message !== 'undefined') { %>
-        <p><%= message %></p>
+    <p><%= message %></p>
     <% } %>
 
     <form method="POST" action="/register" onsubmit="validatePasswords(event)">
-        <label for="username">Nom d'utilisateur:</label>
-        <input type="text" id="username" name="pseudo_user" required>
-        
-        <label for="email">Adresse mail:</label>
-        <input type="email" id="email" name="mail_user" required>
-        
-        <label for="password">Mot de passe:</label>
-        <input type="password" id="password" name="mdp_user" required>
+      <label for="username">Nom d'utilisateur:</label>
+      <input type="text" id="username" name="pseudo_user" required />
 
-        <label for="password_confirmed">Confirmer Mot de passe:</label>
-        <input type="password" id="password_confirmed" name="mdp_user_confirmed" required>
+      <label for="email">Adresse mail:</label>
+      <input type="email" id="email" name="mail_user" required />
 
-        <input type="submit" value="Je m'inscris">
+      <label for="password">Mot de passe:</label>
+      <input type="password" id="password" name="mdp_user" required />
+
+      <label for="password_confirmed">Confirmer Mot de passe:</label>
+      <input
+        type="password"
+        id="password_confirmed"
+        name="mdp_user_confirmed"
+        required
+      />
+
+      <input type="submit" value="Je m'inscris" />
     </form>
 
-    <p class="register">Vous avez déjà un compte ? <a href="/connexion">Connectez-vous</a></p>
+    <p class="register">
+      Vous avez déjà un compte ? <a href="/connexion">Connectez-vous</a>
+    </p>
 
     <div id="cookiePopup" class="cookie">
-        En utilisant ce site web, vous acceptez notre utilisation des cookies.
-        <a href="#" onclick="hideCookiePopup()">Compris</a>
-        <a href="/learn_more">En savoir plus</a>
+      En utilisant ce site web, vous acceptez notre utilisation des cookies.
+      <a href="#" onclick="hideCookiePopup()">Compris</a>
+      <a href="/learn_more">En savoir plus</a>
     </div>
 
     <script>
-        window.onload = function() {
-            showCookiePopup();
-        };
+      window.onload = function () {
+        showCookiePopup();
+      };
     </script>
-
-    <%- include('footer') %>
-</body>
+  </body>
 </html>
