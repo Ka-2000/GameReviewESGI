@@ -9,7 +9,6 @@ const path = require('path');
 
 var ctrlAccueil = require('../controllers/ControlAccueil');
 var ctrlRecherche = require('../controllers/ControlRecherche');
-var ctrlInfosJeu = require('../controllers/ControlInfosJeu');
 const ControlInfosJeu = require('../controllers/ControlInfosJeu');
 var ctrlAuth = require('../controllers/authController');
 
@@ -64,5 +63,9 @@ routeur.get('/recherche', ctrlRecherche.afficher_recherche)
 // Partie InfosJeu
 routeur.get('/infosJeu', ControlInfosJeu.afficher_infosJeu)
 .get('/', ControlInfosJeu.afficher_infosJeu)
+
+//Partie MonCompte
+routeur.get('/mon_compte', ControlMonCompte.afficher_monCompte)
+.get('/', ControlMonCompte.afficher_monCompte)
 
 module.exports = routeur;

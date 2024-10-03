@@ -55,6 +55,10 @@ app.get('/infosJeu', (req, res) => {
     res.render('infosJeu');
 });
 
+app.get('/mon_compte', (req, res) => {
+    res.render('mon_compte');
+});
+
 app.get('/connexion', (req, res) => {
     // Check if the user is already logged in
     if (req.session.user) {

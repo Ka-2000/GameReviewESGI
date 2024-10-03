@@ -1,0 +1,104 @@
+<%- include('header') %>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Compte</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .section-title {
+            background-color: #ff6600;
+            color: white;
+            padding: 10px;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .profile-section, .info-section, .reviews-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .profile-picture {
+            float: left;
+            margin-right: 20px;
+        }
+        .profile-picture img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+        }
+        .profile-info {
+            overflow: hidden;
+        }
+        .profile-info p {
+            margin: 0;
+        }
+        .profile-info .username {
+            color: red;
+            font-size: 1.2em;
+        }
+        .info-section p {
+            margin: 5px 0;
+        }
+        .reviews-section .review {
+            display: inline-block;
+            width: 45%;
+            margin-right: 5%;
+            margin-bottom: 10px;
+        }
+        .reviews-section .review:last-child {
+            margin-right: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Section Mon profil -->
+    <div class="section-title">Mon profil</div>
+    <div class="profile-section">
+        <div class="profile-picture">
+            <img src="/path-to-profile-icon.png" alt="Profile Icon">
+        </div>
+        <div class="profile-info">
+            <p class="username">Pseudo</p>
+            <p>Inscrit depuis le <span id="date_inscription_user">date_inscription_user</span></p>
+            <p><span id="nb_avis_user">nb_avis_user</span> avis postés</p>
+        </div>
+    </div>
+
+    <!-- Section Informations personnelles -->
+    <div class="section-title">Informations personnelles</div>
+    <div class="info-section">
+        <p>Email : <span id="email_user">email_user</span></p>
+        <p>Mot de passe : <span id="mdp_user">mdp_user</span></p>
+        <p>Date de naissance : <span id="date_birth_user">date_birth_user</span></p>
+    </div>
+
+    <!-- Section Mes derniers avis -->
+    <div class="section-title">Mes derniers avis</div>
+    <div class="reviews-section">
+        <div class="review">
+            <h3>Titre du jeu</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tempus sapien nec quam consequat, in sollicitudin sem viverra.</p>
+        </div>
+        <div class="review">
+            <h3>Titre du jeu</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tempus sapien nec quam consequat, in sollicitudin sem viverra.</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
