@@ -31,3 +31,17 @@ exports.login = (req, res) => {
         }
     });
 };
+exports.register = (req, res) => {
+    const { pseudo_user, mdp_user, mail_user, url_image_user, is_admin } = req.body;
+
+    const query = 'INSERT INTO utilisateur (pseudo_user, mdp_user, mail_user, url_image_user, is_admin) VALUES (?, ?, ?, ?, ?)';
+    db.query(query, [pseudo_user, mdp_user, mail_user, url_image_user, is_admin], (error, results) => {
+        if (error) {
+            console.error("Erreur lors de l'inscription:", error);
+            return res.render('register', { message: 'Erreur de base de données' }); // Renvoyer à la page d'inscription avec un message
+        }
+
+        return res.render('register', { message: 'Inscription réussie !' }); // Renvoyer à la page d'inscription avec un message de succès
+    });
+};
+

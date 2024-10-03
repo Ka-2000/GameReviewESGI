@@ -44,6 +44,7 @@ app.get('/connexion', (req, res) => {
 
 // ** Ajout de la route POST ici **
 app.post('/connexion', ctrlAuth.login); // Gère les soumissions de formulaire de connexion
+app.post('/register', ctrlAuth.register);
 
 app.get('/register', (req, res) => {
     res.render('register');

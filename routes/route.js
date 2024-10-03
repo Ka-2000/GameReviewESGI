@@ -34,6 +34,8 @@ routeur.get('/register', (req, res) => {
     res.render('register');  // Rendre le fichier connexion.ejs depuis le dossier 'views'
 });
 
+routeur.post('/register', ctrlAuth.register);
+
 // Partie Recherche
 routeur.get('/recherche', ctrlRecherche.afficher_recherche)
 .get('/', ctrlRecherche.afficher_recherche)

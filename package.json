@@ -19,6 +19,7 @@
     "iniparser": "^1.0.5",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
+    "sweetalert": "^2.1.2",
     "urlencode": "^1.1.0"
   }
 }
