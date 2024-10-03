@@ -4,6 +4,7 @@
 // création du routeur Express pour ce module
 const express = require('express');
 const routeur = express.Router();
+const path = require('path'); 
 
 
 var ctrlAccueil = require('../controllers/ControlAccueil');
@@ -17,6 +18,10 @@ var ctrlStock = require('../controllers/ControlStocks') */
 // Partie Accueil
 routeur.get('/accueil', ctrlAccueil.afficher_accueil)
 .get('/', ctrlAccueil.afficher_accueil)
+
+routeur.get('/connexion', (req, res) => {
+    res.render('connexion');  // Rendre le fichier connexion.ejs depuis le dossier 'views'
+});
 
 // Partie Recherche
 routeur.get('/recherche', ctrlRecherche.afficher_recherche)
