@@ -21,6 +21,10 @@ routeur.get('/connexion', (req, res) => {
     res.render('connexion');  // Rendre le fichier connexion.ejs depuis le dossier 'views'
 });
 
+routeur.get('/register', (req, res) => {
+    res.render('register');  // Rendre le fichier connexion.ejs depuis le dossier 'views'
+});
+
 // Partie Recherche
 routeur.get('/recherche', ctrlRecherche.afficher_recherche)
 .get('/', ctrlRecherche.afficher_recherche)

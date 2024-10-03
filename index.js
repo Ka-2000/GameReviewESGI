@@ -53,6 +53,10 @@ app.get('/', (req, res) => {
 
 .get('/connexion', function(req, res) {
     res.render('connexion');
+})
+
+.get('/register', function(req, res) {
+    res.render('register');
 });
 
 
