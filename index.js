@@ -44,11 +44,16 @@ app.get('/', (req, res) => {
 .get('/...', function(req, res) {
     res.render('...')
     })
+    
 
 //Afficher vue ...
 .get('/...', function(req, res) {
     res.render('...')
     })
+
+.get('/connexion', function(req, res) {
+    res.render('connexion');
+});
 
 
 app.use('/GameReviewESGI', routeur)
