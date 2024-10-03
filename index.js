@@ -41,8 +41,8 @@ app.get('/', (req, res) => {
     })
 
 //Afficher vue ...
-.get('/...', function(req, res) {
-    res.render('...')
+.get('/infosJeu', function(req, res) {
+    res.render('infosJeu')
     })
     
 
