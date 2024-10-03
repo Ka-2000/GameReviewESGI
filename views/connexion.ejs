@@ -22,7 +22,7 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border: 2px solid orange; /* Bordure orange */
+            border: 2px solid orange;
         }
         label {
             font-weight: bold;
@@ -35,14 +35,14 @@
             border-radius: 5px;
         }
         input[type="submit"] {
-            background-color: orange; /* Couleur de fond orange */
+            background-color: orange;
             color: #fff;
             cursor: pointer;
             margin: 0 auto;
             display: block;
         }
         input[type="submit"]:hover {
-            background-color: darkorange; /* Couleur au survol orange foncé */
+            background-color: darkorange;
         }
         p {
             color: red;
@@ -50,7 +50,7 @@
         }
         .register {
             text-align: center;
-            color: #000; /* Change cette couleur si besoin */
+            color: #000;
         }
         .cookie {
             text-align: center;
@@ -103,9 +103,31 @@
         function showLoading(event) {
             event.preventDefault();
             document.getElementById('loadingOverlay').style.display = 'flex';
-            setTimeout(function() {
-                event.target.submit();
-            }, 10);
+            const form = event.target;
+
+            fetch(form.action, {
+                method: form.method,
+                body: new URLSearchParams(new FormData(form)),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('loadingOverlay').style.display = 'none';
+                if (data.message === 'Utilisateur authentifié !') {
+                    // Redirection en cas de succès
+                    window.location.href = '/accueil'; // Redirige vers la page d'accueil
+                } else {
+                    // Affiche un message d'erreur
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                document.getElementById('loadingOverlay').style.display = 'none';
+                alert('Une erreur est survenue, veuillez réessayer.');
+            });
         }
     </script>
 </head>
@@ -117,7 +139,7 @@
     </div>
 
     <h1>Page de Connexion</h1>
-    <form method="POST" onsubmit="showLoading(event)">
+    <form method="POST" action="/connexion" onsubmit="showLoading(event)">
         <label for="username">Nom d'utilisateur:</label>
         <input type="text" id="username" name="username" required><br><br>
         
@@ -141,9 +163,7 @@
         };
     </script>
 
-
 </body>
 <%- include('footer') %>
 
 </html>
-
