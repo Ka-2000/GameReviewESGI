@@ -102,7 +102,7 @@
 
     <!-- Affichage des messages d'erreur ou de succès -->
     <% if (typeof message !== 'undefined') { %>
-    <p><%= message %></p>
+    <p style="color: #000;"><%= message %></p>
     <% } %>
 
     <form method="POST" action="/register" onsubmit="validatePasswords(event)">
@@ -130,11 +130,7 @@
       Vous avez déjà un compte ? <a href="/connexion">Connectez-vous</a>
     </p>
 
-    <div id="cookiePopup" class="cookie">
-      En utilisant ce site web, vous acceptez notre utilisation des cookies.
-      <a href="#" onclick="hideCookiePopup()">Compris</a>
-      <a href="/learn_more">En savoir plus</a>
-    </div>
+
 
     <script>
       window.onload = function () {
