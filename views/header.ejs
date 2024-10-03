@@ -25,14 +25,39 @@
             text-decoration: none;
             border-radius: 5px;
         }
+
+        /* Style pour le bouton "Mon compte" en vert */
+        header .mon-compte {
+            background-color: #28a745; /* Couleur verte */
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
 
 <header>
     <img src="/icon.png" alt="Logo" style="height: 50px;">
-    <a href="http://localhost:3000/Connexion" class="connexion">Connexion</a>
+    <!-- Lien qui sera modifié dynamiquement -->
+    <a href="http://localhost:3000/Connexion" id="user-action" class="connexion">Connexion</a>
 </header>
+
+<script>
+    // Simulation de la vérification de connexion de l'utilisateur
+    var isUserLoggedIn = true; // Change à 'false' pour tester si l'utilisateur est déconnecté
+
+    var userAction = document.getElementById("user-action");
+
+    if (isUserLoggedIn) {
+        // L'utilisateur est connecté
+        userAction.textContent = "Mon compte";
+        userAction.href = "http://localhost:3000/MonCompte"; // Redirige vers la page "Mon compte"
+        userAction.classList.remove("connexion");
+        userAction.classList.add("mon-compte"); // Appliquer le style vert
+    } 
+</script>
 
 </body>
 </html>
