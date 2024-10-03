@@ -24,10 +24,10 @@ exports.login = (req, res) => {
 
         if (results.length > 0) {
             // Authentification réussie
-            return res.status(200).json({ message: 'Utilisateur authentifié !' });
+            return res.status(200).json({ message: 'Utilisateur authentifié !'});
         } else {
             // Authentification échouée
-            return res.status(401).json({ message: 'Nom d\'utilisateur ou mot de passe incorrect' });
+            return res.status(401).json({ message: 'Nom d\'utilisateur ou mot de passe incorrect'});
         }
     });
 };
