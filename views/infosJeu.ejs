@@ -120,29 +120,36 @@
 <body>
 
 <div class="game-detail">
-    <img src="cover.jpg" alt="Cover du jeu">
+    <% let cover_url = "game_icon.png"; %>
+    <% let titre = "Nom du jeu"; %>
+    <% let nb_avis = 3; %>
+    <% let date_sortie = "01/01/2021"; %>
+    <% let game_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tempus sapien nec quam consequat, in sollicitudin sem viverra."; %>
+    <img src="<%= cover_url %>" alt="Cover du jeu">
     <div class="game-info">
-        <h1><%= gameTitle %></h1>
-        <p>Sorti le <%= gameDate %></p>
+        <h1><%= titre %></h1>
+        <p>Sorti le <%= date_sortie %></p>
         <p>Disponible sur Xbox, PS4, PS5, PC</p>
-        <p><%= descriptionJeu %></p>
-        <a href="#" class="btn">Voir les avis</a>
+        <p><%= game_description %></p>
+        <a href="" class="btn">Voir les avis</a>
     </div>
 </div>
 
 <div class="reviews">
-    <h2 class="section-title">Avis <%= avisJeu %> ★ (<%= nbAvisJeu %>)</h2>
+    <h2 class="section-title">Avis ★ (<%= nb_avis %>)</h2>
     <div class="review">
-        <h3>Nom de l'utilisateur</h3>
+        <% let user_name = "Nom de l'utilisateur"; %>
+        <h3><%= user_name %></h3>
         <p class="stars">
-            <% for (let i = 0; i < avis.stars; i++) { %>
+        <% let stars = 5; %>
+            <% for (let i = 0; i < stars; i++) { %>
             ★
             <% } %>
-            <% for (let i = avis.stars; i < 5; i++) { %>
+            <% for (let i = 0; i < (5-stars); i++) { %>
             ☆
             <% } %>
         </p></p>
-        <p><%= descriptionJeu %></p>
+        <p>Avis_de_user</p>
     </div>
     <div class="review">
         <h3>Nom de l'utilisateur</h3>
