@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Jeu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        header {
+            background-color: #e6e6e6;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .game-detail {
+            background-color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .game-detail img {
+            width: 200px;
+            height: auto;
+            border: 1px solid #ccc;
+        }
+        .game-info {
+            flex: 1;
+            margin-left: 20px;
+        }
+        .game-info h1 {
+            font-size: 24px;
+        }
+        .game-info p {
+            font-size: 14px;
+            color: #666;
+            margin: 5px 0;
+        }
+        .game-info .btn {
+            background-color: #ff6600;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .section-title {
+            background-color: #ff6600;
+            color: white;
+            padding: 10px;
+            margin-top: 40px;
+        }
+        .reviews {
+            padding: 20px;
+            background-color: white;
+            margin: 20px;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .review {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+        .review h3 {
+            font-size: 16px;
+        }
+        .review .stars {
+            color: #f5a623;
+        }
+        .related-games {
+            margin: 20px;
+        }
+        .related-games .games-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .related-games .game-card {
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 23%;
+            margin-bottom: 20px;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .related-games .game-card img {
+            width: 100%;
+            height: auto;
+        }
+        .related-games .game-card h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .related-games .game-card p {
+            color: #666;
+            font-size: 14px;
+        }
+        .related-games .game-card .rating {
+            color: #f5a623;
+        }
+        .related-games .game-card a {
+            display: block;
+            text-align: right;
+            color: #ff6600;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Logo</div>
+</header>
+
+<div class="game-detail">
+    <img src="cover.jpg" alt="Cover du jeu">
+    <div class="game-info">
+        <h1>Nom du jeu</h1>
+        <p>Sortie le 01/10/2024</p>
+        <p>Disponible sur Xbox, PS4, PS5, PC</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tempus sapien nec quam consequat, in sollicitudin sem viverra. Ut porta sagittis orci, quis pretium risus laoreet vel.</p>
+        <a href="#" class="btn">Voir les avis</a>
+    </div>
+</div>
+
+<div class="reviews">
+    <h2 class="section-title">Avis 3.7 ★ (42)</h2>
+    <div class="review">
+        <h3>Nom de l'utilisateur</h3>
+        <p class="stars">★★★★☆</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tempus sapien nec quam consequat, in sollicitudin sem viverra.</p>
+    </div>
+    <div class="review">
+        <h3>Nom de l'utilisateur</h3>
+        <p class="stars">★★★☆☆</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tempus sapien nec quam consequat, in sollicitudin sem viverra.</p>
+    </div>
+    <div class="review">
+        <h3>Nom de l'utilisateur</h3>
+        <p class="stars">★★★★☆</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tempus sapien nec quam consequat, in sollicitudin sem viverra.</p>
+    </div>
+</div>
+
+<div class="related-games">
+    <h2 class="section-title">De la même catégorie</h2>
+    <div class="games-container">
+        <div class="game-card">
+            <img src="cover.jpg" alt="Cover">
+            <h3>Nom du jeu</h3>
+            <p class="rating">3.7 ★ (42)</p>
+            <p>Xbox, PS4, PS5, PC</p>
+            <a href="#">voir plus</a>
+        </div>
+        <div class="game-card">
+            <img src="cover.jpg" alt="Cover">
+            <h3>Nom du jeu</h3>
+            <p class="rating">3.7 ★ (42)</p>
+            <p>Xbox, PS4, PS5, PC</p>
+            <a href="#">voir plus</a>
+        </div>
+        <div class="game-card">
+            <img src="cover.jpg" alt="Cover">
+            <h3>Nom du jeu</h3>
+            <p class="rating">3.7 ★ (42)</p>
+            <p>Xbox, PS4, PS5, PC</p>
+            <a href="#">voir plus</a>
+        </div>
+        <div class="game-card">
+            <img src="cover.jpg" alt="Cover">
+            <h3>Nom du jeu</h3>
+            <p class="rating">3.7 ★ (42)</p>
+            <p>Xbox, PS4, PS5, PC</p>
+            <a href="#">voir plus</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

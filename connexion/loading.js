@@ -7,6 +7,6 @@ var conn = mysql.createConnection({
 });
 conn.connect(function (err) {
     if (err) throw err;
-    console.log('-----------------------------------Connexion à la base de donnée réussis !-----------------------------------');
+    console.log('-----------------------------------Connexion à la base de donnée réussie !-----------------------------------');
 });
 module.exports = conn;
