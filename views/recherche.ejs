@@ -15,7 +15,8 @@
 
         /* Barre de recherche */
         .search-bar {
-            padding: 20px;
+            margin-top: 80px; /* Décaler la barre de recherche de 80 pixels vers le bas */
+            padding: 6px;
             background-color: #fff;
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
             display: flex;
@@ -24,7 +25,7 @@
         }
 
         .search-bar input {
-            width: 85%;
+            width: 95%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -43,16 +44,6 @@
         }
 
         /* Section des filtres */
-        .filter-section {
-            background-color: #4c4c4c;
-            color: white;
-            padding: 20px;
-            position: relative;
-            width: 100%;
-            display: none;
-            top: 0;
-        }
-
         .filter-section h3 {
             font-size: 18px;
             margin-bottom: 10px;
@@ -66,6 +57,52 @@
             border-radius: 5px;
             cursor: pointer;
             margin-right: 10px;
+        }
+
+        /* Style pour les plateformes et les nouveautés */
+        .filter-section {
+            background-color: #4c4c4c;
+            color: white;
+            padding: 10px;
+            position: relative;
+            width: 100%;
+            display: none;
+            top: 0;
+        }
+
+        .filter-item {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="checkbox"], input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        /* Style pour l'animation des étoiles */
+        .star-rating {
+            display: flex; /* Utiliser flexbox pour aligner les étoiles */
+            justify-content: flex-start; /* Aligner à gauche */
+            margin-left: 0; /* Optionnel : enlever toute marge à gauche */
+        }
+
+        .star {
+            font-size: 24px;
+            color: #ddd; /* Étoile désactivée */
+            cursor: pointer;
+        }
+
+        .star:hover,
+        .star:hover ~ .star {
+            color: #ff9800; /* Couleur au survol */
+        }
+
+        .star.selected {
+            color: #ff9800; /* Couleur après sélection */
         }
 
         /* Résultats */
@@ -107,18 +144,51 @@
 <div class="search-bar">
     <input type="text" id="search-input" placeholder="Rechercher un jeu">
     <button onclick="toggleFilters()">
-        <img src="filtre.png" alt="Filtre">
+        <img src="/filters.png" alt="Filtre">
     </button>
 </div>
 
 <!-- Section des filtres -->
-<div class="filter-section" id="filters">
-    <h3>Filtres</h3>
-    <button>Catégories</button> <!-- Ajout de menu déroulant -->
-    <button>Plateformes</button> <!-- Ajout de menu déroulant -->
-    <button>Avis moyen</button> <!-- Ajout de menu déroulant -->
-    <button>Nouveauté</button> <!-- Ajout de cases à cocher -->
+<div class="filter-section", id = "filters">
+    <div class="filter-item">
+        <h4>Plateformes</h4>
+        <label>
+            <input type="checkbox" name="platforms" value="PC"> PC
+        </label>
+        <label>
+            <input type="checkbox" name="platforms" value="Xbox"> Xbox
+        </label>
+        <label>
+            <input type="checkbox" name="platforms" value="Playstation"> PlayStation
+        </label>
+    </div>
+
+    <div class="filter-item">
+        <h4>Nouveauté</h4>
+        <label>
+            <input type="radio" name="nouveaute" value="Oui"> Oui
+        </label>
+        <label>
+            <input type="radio" name="nouveaute" value="Non"> Non
+        </label>
+        <label>
+            <input type="radio" name="nouveaute" value="Tous" checked> Tous
+        </label>
+    </div>
+
+    <div class="filter-item">
+        <h4>Avis moyen</h4>
+        <div class="star-rating">
+            <span class="star" data-value="1">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="5">&#9733;</span>
+        </div>
+    </div>
 </div>
+
+
 
 <!-- Section des résultats -->
 <div class="results-section" id="results">
@@ -144,6 +214,44 @@
             filterSection.style.display = 'block';
         }
     }
+    document.querySelectorAll('.star').forEach(star => {
+    star.addEventListener('mouseover', function() {
+        // Colorier toutes les étoiles jusqu'à celle survolée
+        this.style.color = '#ff9800';
+        let previousStars = this.previousElementSibling;
+        while (previousStars) {
+            previousStars.style.color = '#ff9800';
+            previousStars = previousStars.previousElementSibling;
+        }
+    });
+
+    star.addEventListener('mouseout', function() {
+        // Réinitialiser toutes les étoiles sauf celles sélectionnées
+        document.querySelectorAll('.star').forEach(s => {
+            if (!s.classList.contains('selected')) {
+                s.style.color = '#ddd';
+            }
+        });
+    });
+
+    star.addEventListener('click', function() {
+        // Désélectionner les autres étoiles
+        document.querySelectorAll('.star').forEach(s => s.classList.remove('selected'));
+        
+        // Sélectionner cette étoile
+        this.classList.add('selected');
+        
+        // Colorier toutes les étoiles jusqu'à celle sélectionnée
+        this.style.color = '#ff9800';
+        let previousStars = this.previousElementSibling;
+        while (previousStars) {
+            previousStars.classList.add('selected');
+            previousStars.style.color = '#ff9800';
+            previousStars = previousStars.previousElementSibling;
+        }
+    });
+});
+
 </script>
 
 </body>
