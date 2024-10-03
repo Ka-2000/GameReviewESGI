@@ -74,6 +74,19 @@
         function hideCookiePopup() {
             document.getElementById("cookiePopup").style.display = "none";
         }
+
+        // Fonction pour vérifier si les mots de passe correspondent
+        function validatePasswords(event) {
+            const password = document.getElementById("password").value;
+            const passwordConfirmed = document.getElementById("password_confirmed").value;
+
+            if (password !== passwordConfirmed) {
+                // Si les mots de passe ne correspondent pas, on affiche un message d'alerte
+                alert("Les mots de passe ne correspondent pas.");
+                // On empêche l'envoi du formulaire
+                event.preventDefault();
+            }
+        }
     </script>
 </head>
 <body>
@@ -81,12 +94,12 @@
 
     <h1>Page d'Inscription</h1>
 
-    <!-- Affichage des messages d'erreur ou de succès - test -->
+    <!-- Affichage des messages d'erreur ou de succès -->
     <% if (typeof message !== 'undefined') { %>
         <p><%= message %></p>
     <% } %>
 
-    <form method="POST" action="/register">
+    <form method="POST" action="/register" onsubmit="validatePasswords(event)">
         <label for="username">Nom d'utilisateur:</label>
         <input type="text" id="username" name="pseudo_user" required>
         
@@ -96,11 +109,8 @@
         <label for="password">Mot de passe:</label>
         <input type="password" id="password" name="mdp_user" required>
 
-        <label for="url_image">URL de l'image (facultatif):</label>
-        <input type="text" id="url_image" name="url_image_user">
-
-        <label for="is_admin">Administrateur:</label>
-        <input type="checkbox" id="is_admin" name="is_admin" value="1">
+        <label for="password_confirmed">Confirmer Mot de passe:</label>
+        <input type="password" id="password_confirmed" name="mdp_user_confirmed" required>
 
         <input type="submit" value="Je m'inscris">
     </form>
