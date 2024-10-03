@@ -56,16 +56,33 @@ app.get('/infosJeu', (req, res) => {
 });
 
 app.get('/connexion', (req, res) => {
+    // Check if the user is already logged in
+    if (req.session.user) {
+        // Redirect to accueil if the user is already connected
+        return res.redirect('/accueil');
+    }
+
+    // If not logged in, render the connexion page
     res.render('connexion');
 });
+
+app.get('/register', (req, res) => {
+    // Check if the user is already logged in
+    if (req.session.user) {
+        // Redirect to accueil if the user is already connected
+        return res.redirect('/accueil');
+    }
+
+    // If not logged in, render the registration page
+    res.render('register');
+});
+
 
 // ** Ajout de la route POST ici **
 app.post('/connexion', ctrlAuth.login); // Gère les soumissions de formulaire de connexion
 app.post('/register', ctrlAuth.register);
 
-app.get('/register', (req, res) => {
-    res.render('register');
-});
+
 
 // Utiliser le routeur pour d'autres routes
 app.use('/GameReviewESGI', routeur);

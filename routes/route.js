@@ -32,13 +32,28 @@ routeur.get('/connexion', (req, res) => {
 
 // Route pour traiter la connexion
 
-routeur.post('/connexion', ctrlAuth.login)
-.post('/connexion', ctrlAuth.login);  // Utilisez login ici
-
+routeur.post('/connexion', (req, res, next) => {
+    // Check if the user is already logged in
+    if (req.session.user) {
+        // Redirect to accueil if the user is already connected
+        return res.redirect('/accueil');
+    }
+    
+    // If not logged in, proceed to call the login controller
+    ctrlAuth.login(req, res, next);
+});
 
 routeur.get('/register', (req, res) => {
-    res.render('register');  // Rendre le fichier connexion.ejs depuis le dossier 'views'
+    // Check if the user is already logged in
+    if (req.session.user) {
+        // Redirect to accueil if the user is already connected
+        return res.redirect('/accueil');
+    }
+
+    // If not logged in, render the registration page
+    res.render('register');  // Render the register.ejs from the 'views' folder
 });
+
 
 routeur.post('/register', ctrlAuth.register);
 
