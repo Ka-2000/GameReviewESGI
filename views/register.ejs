@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page de Connexion</title>
+    <title>Page d'Inscription</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -22,7 +20,6 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border: 2px solid orange; /* Bordure orange */
         }
         label {
             font-weight: bold;
@@ -34,29 +31,29 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
-        input[type="submit"] {
+        input[type="submit"], button {
             background-color: orange; /* Couleur de fond orange */
             color: #fff;
             cursor: pointer;
             margin: 0 auto;
             display: block;
+            border-radius: 5px;
+            border: none; /* Pas de bordure */
+            width: 100%;
+            padding: 10px;
         }
-        input[type="submit"]:hover {
+        input[type="submit"]:hover, button:hover {
             background-color: darkorange; /* Couleur au survol orange foncé */
         }
         p {
             color: red;
             text-align: center;
         }
-        .register {
-            text-align: center;
-            color: #000; /* Change cette couleur si besoin */
-        }
         .cookie {
             text-align: center;
             color: #667;
-            display: none;
-            position: fixed;
+            display: none; /* Hide the cookie consent initially */
+            position: fixed; /* Fixed position to show as a popup */
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
@@ -64,86 +61,67 @@
             padding: 10px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            z-index: 999;
+            z-index: 999; /* Ensure it's on top of other elements */
         }
-        .loading-overlay {
-            display: none;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(255, 255, 255, 0.8);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
+        .login {
+            text-align: center;
+            color: #000;
         }
-        .spinner {
-            border: 16px solid #f3f3f3;
-            border-top: 16px solid #3498db;
-            border-radius: 50%;
-            width: 120px;
-            height: 120px;
-            animation: spin 2s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
         }
     </style>
     <script>
+        // JavaScript function to show the cookie consent popup
         function showCookiePopup() {
             document.getElementById("cookiePopup").style.display = "block";
         }
+
+        // JavaScript function to hide the cookie consent popup
         function hideCookiePopup() {
             document.getElementById("cookiePopup").style.display = "none";
         }
-        function showLoading(event) {
-            event.preventDefault();
-            document.getElementById('loadingOverlay').style.display = 'flex';
-            setTimeout(function() {
-                event.target.submit();
-            }, 10);
-        }
     </script>
+    <link rel="icon" type="image/x-icon" href="appESGITutor.ico">
 </head>
 <body>
-    <button onclick="window.location.href='/accueil'" style="position: absolute; top: 10px; left: 10px;">Accueil</button>
-
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner"></div>
-    </div>
-
-    <h1>Page de Connexion</h1>
-    <form method="POST" onsubmit="showLoading(event)">
+    <h1>Page d'Inscription</h1>
+    <form method="POST">
         <label for="username">Nom d'utilisateur:</label>
-        <input type="text" id="username" name="username" required><br><br>
+        <input type="text" id="username" name="username" required>
+        
+        <label for="email">Adresse mail:</label>
+        <input type="email" id="email" name="email" required>
         
         <label for="password">Mot de passe:</label>
-        <input type="password" id="password" name="password" required><br><br>
-    
-        <input type="submit" value="Connexion">
+        <input type="password" id="password" name="password" required>
+
+        <label for="password_confirm">Tapez à nouveau votre mot de passe:</label>
+        <input type="password" id="password_confirm" name="password_confirm" required>
+
+        <button type="submit">Je m'inscris</button>
     </form>
 
-    <p class="register">Vous n'avez pas de compte ? <a href="">Inscrivez-vous</a></p>
+    <p class="login">Vous avez déjà un compte ? <a href="#">Connectez-vous</a></p>
 
     <div id="cookiePopup" class="cookie">
         En utilisant ce site web, vous acceptez notre utilisation des cookies.
         <a href="#" onclick="hideCookiePopup()">Compris</a>
-        <a href="/learn_more">En savoir plus</a>
+        <a href="#">En savoir plus</a>
     </div>
 
     <script>
+        // Show the cookie consent popup when the page loads
         window.onload = function() {
             showCookiePopup();
         };
     </script>
 
+    <%- include('footer') %>
 
 </body>
-<%- include('footer') %>
-
 </html>
-
