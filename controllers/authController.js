@@ -24,9 +24,22 @@ exports.login = (req, res) => {
 
         if (results.length > 0) {
             // Authentification réussie
+
+            // Créez une session utilisateur pour stocker les informations de l'utilisateur
+
+            mdp_user = results[0].mdp_user;
+            mail_user = results[0].mail_user;
+            url_image_user = results[0].url_image_user;
+            is_admin = results[0].is_admin;
+
+
             req.session.user = { 
                 username, 
-                is_connected: true // Ajoutez l'indicateur de connexion
+                is_connected: true, // Ajoutez l'indicateur de connexion
+                mdp_user,
+                mail_user,
+                url_image_user,
+                is_admin
             };
             console.log(`Session créée pour l'utilisateur : ${username}`);
             return res.status(200).json({ message: 'Utilisateur authentifié !' });
