@@ -56,7 +56,13 @@ app.get('/infosJeu', (req, res) => {
 });
 
 app.get('/mon_compte', (req, res) => {
-    res.render('mon_compte');
+    if (!req.session.user) {
+        return res.redirect('/connexion');
+    }
+    else {
+        const user = req.session.user;
+        res.render('mon_compte', { user });
+    }
 });
 
 app.get('/connexion', (req, res) => {
