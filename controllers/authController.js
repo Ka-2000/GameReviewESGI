@@ -7,48 +7,77 @@ exports.login = (req, res) => {
     // Log les valeurs reçues pour vérifier qu'elles sont correctes
     console.log("Tentative de connexion:", { username, password }); 
 
-    const query = 'SELECT * FROM utilisateur WHERE pseudo_user = ? AND mdp_user = ?';
-    
-    // Log de la requête avant de l'exécuter
-    console.log("Exécution de la requête SQL:", query, [username, password]);
+    const query_id = 'SELECT ID_user FROM utilisateur WHERE pseudo_user = ? AND mdp_user = ?';
 
-    db.query(query, [username, password], (error, results) => {
-        // Log d'erreur de base de données
+    // First query to get ID_user
+    db.query(query_id, [username, password], (error, results) => {
         if (error) {
-            console.error("Erreur de la base de données:", error); // Log l'erreur ici
+            console.error("Erreur de la base de données:", error);
             return res.status(500).json({ message: 'Database error', error });
         }
-
-        // Log des résultats obtenus
+    
         console.log("Résultats de la requête:", results);
-
+    
         if (results.length > 0) {
-            // Authentification réussie
+            const ID_user = results[0].ID_user;
 
-            // Créez une session utilisateur pour stocker les informations de l'utilisateur
+            // Second query to get the number of comments (nb_avis)
+            const query1 = 'SELECT COUNT(*) as nb_avis FROM utilisateur_commentaires WHERE ID_user = ?';
+    
+            db.query(query1, [ID_user], (error, results) => {
+                if (error) {
+                    console.error("Erreur de la base de données:", error);
+                    return res.status(500).json({ message: 'Database error', error });
+                }
 
-            mdp_user = results[0].mdp_user;
-            mail_user = results[0].mail_user;
-            url_image_user = results[0].url_image_user;
-            is_admin = results[0].is_admin;
+                const nb_avis = results[0].nb_avis;
+                console.log("Nombre d'avis de l'utilisateur:", nb_avis);
+    
+                // Now run the third query to fetch the user's details
+                const query2 = 'SELECT * FROM utilisateur WHERE pseudo_user = ? AND mdp_user = ?';
+    
+                console.log("Exécution de la requête SQL:", query2, [username, password]);
 
+                db.query(query2, [username, password], (error, results) => {
+                    if (error) {
+                        console.error("Erreur de la base de données:", error); 
+                        return res.status(500).json({ message: 'Database error', error });
+                    }
+    
+                    console.log("Résultats de la requête:", results);
+    
+                    if (results.length > 0) {
+                        // Authentification réussie
+                        const mdp_user = results[0].mdp_user;
+                        const mail_user = results[0].mail_user;
+                        const url_image_user = results[0].url_image_user;
+                        const is_admin = results[0].is_admin;
+    
+                        // Créez une session utilisateur pour stocker les informations de l'utilisateur
+                        req.session.user = { 
+                            username, 
+                            is_connected: true,
+                            mdp_user,
+                            mail_user,
+                            url_image_user,
+                            is_admin,
+                            nb_avis // Include nb_avis in the session
+                        };
 
-            req.session.user = { 
-                username, 
-                is_connected: true, // Ajoutez l'indicateur de connexion
-                mdp_user,
-                mail_user,
-                url_image_user,
-                is_admin
-            };
-            console.log(`Session créée pour l'utilisateur : ${username}`);
-            return res.status(200).json({ message: 'Utilisateur authentifié !' });
+                        console.log(`Session créée pour l'utilisateur : ${username}`);
+                        return res.status(200).json({ message: 'Utilisateur authentifié !' });
+                    } else {
+                        // Authentification échouée
+                        return res.status(401).json({ message: 'Nom d\'utilisateur ou mot de passe incorrect' });
+                    }
+                });
+            });
         } else {
-            // Authentification échouée
-            return res.status(401).json({ message: 'Nom d\'utilisateur ou mot de passe incorrect' });
+            return res.status(404).json({ message: 'User not found' });
         }
     });
 };
+
 
 exports.register = (req, res) => {
     const { pseudo_user, mdp_user, mail_user, url_image_user, is_admin } = req.body;
