@@ -24,6 +24,11 @@
             padding: 10px 20px;
             text-decoration: none;
             border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Animation de transition pour l'effet de survol */
+        }
+        header .connexion:hover {
+            background-color: #cc5200; /* Couleur plus foncée au survol */
         }
         header .mon-compte {
             background-color: #28a745; /* Couleur verte */
@@ -33,13 +38,18 @@
             border-radius: 5px;
             cursor: pointer;
             position: relative;
+            transition: background-color 0.3s ease; /* Animation de transition pour l'effet de survol */
+
+        }
+        header .mon-compte:hover {
+            background-color: #1e7a34; /* Couleur plus foncée au survol */
         }
         /* Styles pour le menu déroulant */
         .dropdown-content {
-            display: none;
+            display: none;/* Masquer le menu déroulant par défaut */
             position: absolute;
             background-color: white;
-            min-width: 100px;
+            max-width: 127px; /* Largeur minimale du menu déroulant */
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
             right: -10;
@@ -49,13 +59,13 @@
         }
         .dropdown-content a {
             color: black;
-            padding: 12px 8px;
+            padding: 12px 10px;
             width: auto;
             text-decoration: none;
             display: block;
         }
         .dropdown-content a:hover {
-            background-color: #f1f1f1;
+            background-color: #9c9c9c;
         }
         .show {
             display: block;
