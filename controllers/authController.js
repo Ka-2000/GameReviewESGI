@@ -73,7 +73,7 @@ exports.login = (req, res) => {
                 });
             });
         } else {
-            return res.status(404).json({ message: 'User not found' });
+            return res.status(404).json({ message: 'Utilisateur introuvable.' });
         }
     });
 };

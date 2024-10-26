@@ -57,15 +57,17 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
-        .dropdown-content a {
+        .dropdown-content a {/* a signifie lien */
             color: black;
             padding: 12px 10px;
             width: auto;
             text-decoration: none;
             display: block;
+            cursor: pointer
         }
         .dropdown-content a:hover {
             background-color: #9c9c9c;
+
         }
         .show {
             display: block;
@@ -124,7 +126,7 @@
         <a href="http://localhost:3000/Connexion" id="user-action" class="connexion">Connexion</a>
         <div id="dropdownMenu" class="dropdown-content">
             <a href="/mon_compte">Gestion de compte</a>
-            <a href="/logout">Se déconnecter</a>
+            <a class="deconnexion" onclick="logout()" >Se déconnecter</a>
         </div>
     </div>
     <!-- Encadré publicitaire -->
@@ -133,6 +135,7 @@
         Promotion spéciale : -20% sur notre viagra !
     </div>
 </header>
+
 
 <script>
     // Vérification de la connexion de l'utilisateur à partir de la valeur de session
@@ -161,6 +164,14 @@
                 }
             }
         };
+    }
+
+    // Fonction de déconnexion
+    function logout() {
+        // Mettre à jour user.is_connected à false et masquer le menu
+        isUserLoggedIn = false;
+        //TODO : envoyer au serveur la valeur de user.is_connected puis actualiser la page.
+        
     }
 </script>
 
