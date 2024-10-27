@@ -10,8 +10,8 @@ const path = require('path');
 var ctrlAccueil = require('../controllers/ControlAccueil');
 var ctrlRecherche = require('../controllers/ControlRecherche');
 var ControlMonCompte = require('../controllers/ControlMonCompte');
-const ControlInfosJeu = require('../controllers/ControlInfosJeu');
 var ctrlAuth = require('../controllers/authController');
+const ctrlJeu = require('../controllers/ControlJeu');
 
 
 // Partie Accueil
@@ -32,6 +32,8 @@ routeur.get('/mon_compte', (req, res) => {
     const user = req.session.user; // Récupérer l'utilisateur de la session
     res.render('mon_compte', { user }); // Passer l'utilisateur à la vue
 });
+
+routeur.get('/jeu/:id', ctrlJeu.afficher_infosJeu);
 
 
 
@@ -81,10 +83,6 @@ routeur.post('/register', ctrlAuth.register);
 // Partie Recherche
 routeur.get('/recherche', ctrlRecherche.afficher_recherche)
 .get('/', ctrlRecherche.afficher_recherche)
-
-// Partie InfosJeu
-routeur.get('/infosJeu', ControlInfosJeu.afficher_infosJeu)
-.get('/', ControlInfosJeu.afficher_infosJeu)
 
 
 module.exports = routeur;

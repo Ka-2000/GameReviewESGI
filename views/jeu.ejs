@@ -44,7 +44,7 @@
             color: #666;
             margin: 5px 0;
         }
-        .game-info .btn {
+        .btn {
             background-color: #ff6600;
             color: white;
             padding: 10px 20px;
@@ -71,7 +71,13 @@
             padding-bottom: 10px;
         }
         .review h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             font-size: 16px;
+        }
+        .review h3 img {
+            height: 35px;
         }
         .review .stars {
             color: #f5a623;
@@ -120,47 +126,50 @@
 <body>
 
 <div class="game-detail">
-    <% let cover_url = "game_icon.png"; %>
-    <% let titre = "Nom du jeu"; %>
-    <% let nb_avis = 3; %>
-    <% let date_sortie = "01/01/2021"; %>
-    <% let game_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tempus sapien nec quam consequat, in sollicitudin sem viverra."; %>
     <img src="<%= cover_url %>" alt="Cover du jeu">
     <div class="game-info">
         <h1><%= titre %></h1>
         <p>Sorti le <%= date_sortie %></p>
-        <p>Disponible sur Xbox, PS4, PS5, PC</p>
+
+        <% if (availableDevice && availableDevice.length > 0) { %>
+            <p>
+                Disponible sur
+                <% availableDevice.forEach(function(item) { %>
+                    <span><%= item.nom_plateforme %></span>
+                <% }); %>
+            </p>
+        <% } %>
+
         <p><%= game_description %></p>
-        <a href="" class="btn">Voir les avis</a>
+        <a href="#reviews-list" class="btn">Voir les avis</a>
     </div>
 </div>
 
-<div class="reviews">
+<div class="reviews" id="reviews-list">
     <h2 class="section-title">Avis ★ (<%= nb_avis %>)</h2>
-    <div class="review">
-        <% let user_name = "Nom de l'utilisateur"; %>
-        <h3><%= user_name %></h3>
-        <p class="stars">
-        <% let stars = 5; %>
-            <% for (let i = 0; i < stars; i++) { %>
-            ★
-            <% } %>
-            <% for (let i = 0; i < (5-stars); i++) { %>
-            ☆
-            <% } %>
-        </p></p>
-        <p>Avis_de_user</p>
-    </div>
-    <div class="review">
-        <h3>Nom de l'utilisateur</h3>
-        <p class="stars">★★★☆☆</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tempus sapien nec quam consequat, in sollicitudin sem viverra.</p>
-    </div>
-    <div class="review">
-        <h3>Nom de l'utilisateur</h3>
-        <p class="stars">★★★★☆</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tempus sapien nec quam consequat, in sollicitudin sem viverra.</p>
-    </div>
+
+    <% if (reviews && reviews.length > 0) { %>
+        <% reviews.forEach(function(review) { %>
+            <div class="review">
+                <h3>
+                    <img src="/<%= review.url_image_user %>"/>
+                    <%= review.pseudo_user %>
+                </h3>
+                <p class="stars">
+                    <% for (let i = 0; i < review.note_user; i++) { %>
+                        ★
+                    <% } %>
+                    <% for (let i = 0; i < (5 - review.note_user); i++) { %>
+                        ☆
+                    <% } %>
+                </p>
+                <p><%= review.avis_user %></p>
+            </div>
+        <% }); %>
+    <% } else { %>
+        <p>Aucun avis n'a été ajouté</p>
+        <a href="" class="btn">Écrire un avis</a>
+    <% } %>
 </div>
 
 <div class="related-games">

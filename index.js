@@ -51,10 +51,6 @@ app.get('/recherche', (req, res) => {
     res.render('recherche');
 });
 
-app.get('/infosJeu', (req, res) => {
-    res.render('infosJeu');
-});
-
 app.get('/mon_compte', (req, res) => {
     if (!req.session.user) {
         return res.redirect('/connexion');
