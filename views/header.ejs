@@ -15,8 +15,33 @@
             background-color: #e6e6e6;
             padding: 10px 20px;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Aligner les éléments horizontalement */
+            align-items: center; /* Aligner les éléments verticalement */
+        }
+        /* Groupe pour icon et rechercher */
+        .left-group {
+            display: flex;
             align-items: center;
+            gap: 20px; /* Espace entre l'icône et le bouton rechercher */
+        }
+        header .icon {
+            height: 50px;
+            cursor: pointer;
+        }
+        header .rechercher {
+            background-color: #0084ff;
+            color: white;
+            padding: 10px 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Animation de transition pour l'effet de survol */
+        }
+        header .rechercher:hover {
+            background-color: #0068c9; /* Couleur plus foncée au survol */
+        }
+        .mon-compte-container {
+            order: 3;
         }
         header .connexion {
             background-color: #ff6600;
@@ -119,9 +144,15 @@
 <body>
 
 <header>
-    <a href="http://localhost:3000/Connexion">
-        <img src="/icon.png" alt="Logo" style="height: 50px">
-    </a>
+    <!-- Groupe icon + rechercher -->
+    <div class="left-group">
+        <a href="http://localhost:3000/Connexion">
+            <img src="/icon.png" alt="Logo" class="icon">
+        </a>
+        <a href="http://localhost:3000/Recherche" class="rechercher">Rechercher des jeux</a>
+    </div>
+
+    <!-- Bouton connexion reste à droite -->
     <div id="account-menu" class="mon-compte-container">
         <a href="http://localhost:3000/Connexion" id="user-action" class="connexion">Connexion</a>
         <div id="dropdownMenu" class="dropdown-content">
