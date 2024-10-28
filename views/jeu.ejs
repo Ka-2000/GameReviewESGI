@@ -212,15 +212,18 @@
 <!-- Formulaire pour laisser un avis -->
 <div class="review-form">
     <h3>Laisser un avis</h3>
-    <form action="/jeu/<%= id %>/submit_review" method="POST"> <!-- Use the passed ID -->
+    <form action="/jeu/<%= id %>/submit_review" method="POST">
         <label for="rating">Note (sur 5) :</label>
-        <select name="note_user" id="rating" required>
-            <option value="5">5 ★★★★★</option>
-            <option value="4">4 ★★★★☆</option>
-            <option value="3">3 ★★★☆☆</option>
-            <option value="2">2 ★★☆☆☆</option>
-            <option value="1">1 ★☆☆☆☆</option>
-        </select>
+        
+        <!-- Section des étoiles -->
+        <div class="rating">
+            <input type="hidden" name="note_user" id="rating" value="0"> <!-- Champ caché pour stocker la note -->
+            <span class="star" data-value="1">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="5">&#9733;</span>
+        </div>
 
         <label for="reviewText">Votre avis :</label>
         <textarea id="reviewText" name="avis_user" rows="4" placeholder="Partagez votre expérience avec ce jeu" required></textarea>
@@ -229,6 +232,52 @@
     </form>
 </div>
 
+<!-- Styles pour les étoiles -->
+<style>
+    .rating {
+        display: inline-flex;
+        cursor: pointer;
+    }
+    .star {
+        font-size: 1.5em;
+        color: lightgray; /* Couleur par défaut des étoiles */
+    }
+    .star.hover, .star.selected {
+        color: gold; /* Couleur des étoiles sélectionnées */
+    }
+</style>
+
+<!-- Script pour gérer le survol et la sélection des étoiles -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const stars = document.querySelectorAll('.star');
+        const ratingInput = document.getElementById('rating');
+
+        stars.forEach(star => {
+            star.addEventListener('mouseover', () => {
+                // Colorier les étoiles jusqu'à l'étoile survolée
+                stars.forEach(s => s.classList.remove('hover'));
+                for (let i = 0; i < star.dataset.value; i++) {
+                    stars[i].classList.add('hover');
+                }
+            });
+
+            star.addEventListener('click', () => {
+                // Mémoriser la note dans le champ caché et colorier les étoiles sélectionnées
+                ratingInput.value = star.dataset.value;
+                stars.forEach(s => s.classList.remove('selected'));
+                for (let i = 0; i < star.dataset.value; i++) {
+                    stars[i].classList.add('selected');
+                }
+            });
+        });
+
+        // Retirer l'effet de survol quand la souris quitte les étoiles
+        document.querySelector('.rating').addEventListener('mouseleave', () => {
+            stars.forEach(s => s.classList.remove('hover'));
+        });
+    });
+</script>
 
 
 <div class="related-games">
