@@ -1,8 +1,14 @@
+const sha256 = require('sha256');
 // controllers/authController.js
 const db = require('../connexion/loading'); // Importer la connexion à la base de données
 
 exports.login = (req, res) => {
-    const { username, password } = req.body;
+    const { username } = req.body;
+    let { password } = req.body;
+    // decrypt the password sha256
+    const sha256 = require('sha256');
+    password = sha256(password);
+
 
     // Log les valeurs reçues pour vérifier qu'elles sont correctes
     console.log("Tentative de connexion:", { username, password }); 
@@ -82,19 +88,22 @@ exports.login = (req, res) => {
 
 
 exports.register = (req, res) => {
-    const { pseudo_user, mdp_user, mail_user, url_image_user, is_admin } = req.body;
+    const { pseudo_user, mail_user, url_image_user, is_admin } = req.body;
+    let { mdp_user } = req.body; // Use let here if you plan to reassign
+
+    // Hash the password
+    mdp_user = sha256(mdp_user);
 
     const query = 'INSERT INTO utilisateur (pseudo_user, mdp_user, mail_user, url_image_user, is_admin) VALUES (?, ?, ?, ?, ?)';
     db.query(query, [pseudo_user, mdp_user, mail_user, url_image_user, is_admin], (error, results) => {
         if (error) {
             console.error("Erreur lors de l'inscription:", error);
-            return res.render('register', { message: 'Erreur de base de données' }); // Renvoyer à la page d'inscription avec un message
+            return res.render('register', { message: 'Erreur de base de données' });
         }
 
-        return res.render('register', { message: 'Inscription réussie !' }); // Renvoyer à la page d'inscription avec un message de succès
+        return res.render('register', { message: 'Inscription réussie !' });
     });
 };
-
 
 exports.delete_account = (req, res) => {
     const user = req.session.user;
