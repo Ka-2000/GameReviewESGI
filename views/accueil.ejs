@@ -63,53 +63,43 @@
 <div class="section">
     <h2>Nouveautés</h2><!-- Jeux sortis uniquement en 2024 -->
     <div class="games-container">
-        <div class="game-card">
-            <img src="cover.jpg" alt="Cover">
-            <h3>Nom du jeu</h3>
-            <p class="rating">3.7 ★ (42)</p>
-            <p>Xbox, PS4, PS5, PC</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-            <a href="#">voir plus</a>
-        </div>
-        <!-- TODO : faire le lien avec la BDD et afficher chaque jeu dans une boucle for-->
+        <% if (gamesRecentlyAdded && gamesRecentlyAdded.length > 0) { %>
+            <% gamesRecentlyAdded.forEach(function(gameRecentlyAdded, index) { %>
+                <div class="game-card">
+                    <img src="/<%= gameRecentlyAdded.url_image_jeu %>" alt="Cover">
+                    <h3><%= gameRecentlyAdded.titre %></h3>
+                    <p class="rating">
+                        <%= recentlyAddedGamesAverage[index].avgNote.toFixed(1) %> ★ (<%= recentlyAddedGamesAverage[index].countNote %>)
+                    </p>
+                    <p><%= gameRecentlyAdded.description %></p>
+                    <a href="jeu/<%= gameRecentlyAdded.ID_jeu %>">voir plus</a>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>Aucun jeu ajouté récemment</p>
+        <% } %>
     </div>
 </div>
 
 <div class="section">
     <h2>Les plus aimés</h2>
     <div class="games-container">
-        <div class="game-card">
-            <img src="cover.jpg" alt="Cover">
-            <h3>Nom du jeu</h3>
-            <p class="rating">3.7 ★ (42)</p>
-            <p>Xbox, PS4, PS5, PC</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-            <a href="#">voir plus</a>
-        </div>
-        <div class="game-card">
-            <img src="cover.jpg" alt="Cover">
-            <h3>Nom du jeu</h3>
-            <p class="rating">3.7 ★ (42)</p>
-            <p>Xbox, PS4, PS5, PC</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-            <a href="#">voir plus</a>
-        </div>
-        <div class="game-card">
-            <img src="cover.jpg" alt="Cover">
-            <h3>Nom du jeu</h3>
-            <p class="rating">3.7 ★ (42)</p>
-            <p>Xbox, PS4, PS5, PC</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-            <a href="#">voir plus</a>
-        </div>
-        <div class="game-card">
-            <img src="cover.jpg" alt="Cover">
-            <h3>Nom du jeu</h3>
-            <p class="rating">3.7 ★ (42)</p>
-            <p>Xbox, PS4, PS5, PC</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-            <a href="#">voir plus</a>
-        </div>
+        <% if (gamesMostLiked && gamesMostLiked.length > 0) { %>
+            <% gamesMostLiked.forEach(function(gameMostLiked, index) { %>
+                <div class="game-card">
+                    <img src="/<%= gameMostLiked.url_image_jeu %>" alt="Cover">
+                    <h3><%= gameMostLiked.titre %></h3>
+                    <p class="rating">
+                        <%= mostLikedGamesAverage[index].avgNote.toFixed(1) %> ★ (<%= mostLikedGamesAverage[index].countNote %>)
+                    </p>
+                    <p>Xbox, PS4, PS5, PC</p>
+                    <p><%= gameMostLiked.description %></p>
+                    <a href="jeu/<%= gameMostLiked.ID_jeu %>">voir plus</a>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>Aucun jeu aimé récemment</p>
+        <% } %>
     </div>
 </div>
 

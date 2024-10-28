@@ -5,6 +5,7 @@ const path = require('path');
 const routeur = require('./routes/route.js');
 const ctrlAuth = require('./controllers/authController'); // Assure-toi d'importer le contrôleur
 const ctrlJeu = require('./controllers/ControlJeu');
+const ctrlAccueil = require('./controllers/ControlAccueil.js');
 const db = require('./connexion/loading'); // Importer la connexion à la base de données
 
 // Initialiser l'application
@@ -41,13 +42,7 @@ app.get('/', (req, res) => {
     res.send('Le serveur GameReview est actif !');
 });
 
-
-
-app.get('/accueil', (req, res) => {
-    const user = req.session.user; // Récupérer l'utilisateur de la session
-    res.render('accueil', { user }); // Passer l'utilisateur à la vue
-});
-
+app.get('/accueil', ctrlAccueil.afficher_accueil);
 
 app.get('/recherche', (req, res) => {
     res.render('recherche');

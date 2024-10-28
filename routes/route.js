@@ -15,13 +15,12 @@ const ctrlJeu = require('../controllers/ControlJeu');
 
 
 // Partie Accueil
-routeur.get('/accueil', ctrlAccueil.afficher_accueil)
-.get('/', ctrlAccueil.afficher_accueil)
+routeur.get('/accueil', ctrlAccueil.afficher_accueil);
 
-routeur.get('/accueil', (req, res) => {
-    const user = req.session.user; // Récupérer l'utilisateur de la session
-    res.render('accueil', { user }); // Passer l'utilisateur à la vue
-});
+// routeur.get('/accueil', (req, res) => {
+//     const user = req.session.user; // Récupérer l'utilisateur de la session
+//     res.render('accueil', { user }); // Passer l'utilisateur à la vue
+// });
 
 //Partie MonCompte
 routeur.get('/mon_compte', ControlMonCompte.afficher_monCompte)
