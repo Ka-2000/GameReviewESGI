@@ -185,7 +185,7 @@
 </div>
 
 <div class="reviews" id="reviews-list">
-    <h2 class="section-title">Avis ★ (<%= nb_avis %>)</h2>
+    <h2 class="section-title">Avis <%= reviewAverage %> ★ (<%= nb_reviews %>)</h2>
 
     <% if (reviews && reviews.length > 0) { %>
         <% reviews.forEach(function(review) { %>
@@ -235,34 +235,21 @@
 <div class="related-games">
     <h2 class="section-title">De la même catégorie</h2>
     <div class="games-container">
-        <div class="game-card">
-            <img src="cover.jpg" alt="Cover">
-            <h3>Nom du jeu</h3>
-            <p class="rating">3.7 ★ (42)</p>
-            <p>Xbox, PS4, PS5, PC</p>
-            <a href="#">voir plus</a>
-        </div>
-        <div class="game-card">
-            <img src="cover.jpg" alt="Cover">
-            <h3>Nom du jeu</h3>
-            <p class="rating">3.7 ★ (42)</p>
-            <p>Xbox, PS4, PS5, PC</p>
-            <a href="#">voir plus</a>
-        </div>
-        <div class="game-card">
-            <img src="cover.jpg" alt="Cover">
-            <h3>Nom du jeu</h3>
-            <p class="rating">3.7 ★ (42)</p>
-            <p>Xbox, PS4, PS5, PC</p>
-            <a href="#">voir plus</a>
-        </div>
-        <div class="game-card">
-            <img src="cover.jpg" alt="Cover">
-            <h3>Nom du jeu</h3>
-            <p class="rating">3.7 ★ (42)</p>
-            <p>Xbox, PS4, PS5, PC</p>
-            <a href="#">voir plus</a>
-        </div>
+
+        <% if (otherGames && otherGames.length > 0) { %>
+            <% otherGames.forEach(function(otherGame, index) { %>
+                <div class="game-card">
+                    <img src="/<%= otherGame.url_image_jeu %>" alt="Cover">
+                    <h3><%= otherGame.titre %></h3>
+                    <p class="rating">
+                        <%= reviewOtherGame[index].avgNote.toFixed(1) %> ★ (<%= reviewOtherGame[index].countNote %>)
+                    </p>
+                    <a href="/jeu/<%= otherGame.ID_jeu %>">voir plus</a>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>Aucun jeu de la même catégorie disponible</p>
+        <% } %>
     </div>
 </div>
 

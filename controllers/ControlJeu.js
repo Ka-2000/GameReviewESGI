@@ -60,7 +60,7 @@ module.exports = {
                                 console.error("Get review data SQL error :", err); // Display the SQL error in console
                             }
                             const reviews = getReviewResult;
-                            const nb_avis = getReviewResult.length;
+                            const nb_reviews = getReviewResult.length;
 
                             const date = new Date(date_sortie);
                             const formattedDate = date.toLocaleDateString('fr-FR', {
@@ -68,15 +68,83 @@ module.exports = {
                                 month: '2-digit',
                                 year: 'numeric'
                             });
-                            
-                            res.render('jeu', {
-                                cover_url,
-                                titre,
-                                nb_avis,
-                                date_sortie: formattedDate,
-                                game_description,
-                                availableDevice,
-                                reviews
+
+                            const getReviewAverage = `
+                                SELECT AVG(note_user)
+                                FROM commentaires c
+                                LEFT JOIN jeu_commentaires jc ON jc.ID_commentaire = c.ID_commentaire
+                                WHERE jc.ID_jeu = ?; 
+                            `;
+                            bd.query(getReviewAverage, [gameId], function (err, getReviewAverageResult) {
+                                if (err) {
+                                    console.error("Get average review data SQL error :", err); // Display the SQL error in console
+                                }
+                                const reviewAverage = getReviewAverageResult[0]["AVG(note_user)"];
+
+                                const getGameWithSameCategoryQuery = `
+                                    SELECT
+                                        j.*
+                                    FROM jeu_categorie jc
+                                    LEFT JOIN jeux j ON j.ID_jeu = jc.ID_jeu
+                                    WHERE ID_categorie IN (
+                                        SELECT ID_categorie
+                                        FROM jeu_categorie
+                                        WHERE ID_jeu = ?
+                                    )
+                                    AND jc.ID_jeu != ?
+                                    LIMIT 4; ;
+                                `;
+                                bd.query(getGameWithSameCategoryQuery, [gameId, gameId], function (err, getGamesWithSameCategoryResult) {
+                                    if (err) {
+                                        console.error("Get review data SQL error :", err); // Display the SQL error in console
+                                    }
+                                    const otherGames = getGamesWithSameCategoryResult;
+
+                                    var reviewOtherGame = [];
+                                    var otherGamePromises = otherGames.map(otherGame => {
+                                        const currentIdGame = otherGame.ID_jeu;
+                                        const getOtherGameReview = `
+                                            SELECT AVG(note_user) AS avg_note, COUNT(note_user) AS count_note
+                                            FROM commentaires c
+                                            LEFT JOIN jeu_commentaires jc ON jc.ID_commentaire = c.ID_commentaire
+                                            WHERE jc.ID_jeu = ?;
+                                        `;
+                                    
+                                        return new Promise((resolve, reject) => {
+                                            bd.query(getOtherGameReview, [currentIdGame], function (err, result) {
+                                                if (err) {
+                                                    console.error("Get review data SQL error:", err);
+                                                    reject(err);
+                                                } else {
+                                                    const avgNote = result[0].avg_note || 0;  // Default to 0 if no average
+                                                    const countNote = result[0].count_note || 0; // Default to 0 if no count
+                                                    reviewOtherGame.push({ avgNote, countNote });
+                                                    resolve();
+                                                }
+                                            });
+                                        });
+                                    });
+                                    
+                                    // Attendre que toutes les requêtes soient terminées
+                                    Promise.all(otherGamePromises).then(() => {
+                                        res.render('jeu', {
+                                            cover_url,
+                                            titre,
+                                            reviewAverage,
+                                            nb_reviews,
+                                            date_sortie: formattedDate,
+                                            game_description,
+                                            availableDevice,
+                                            reviews,
+                                            otherGames,
+                                            reviewOtherGame
+                                        });
+                                    }).catch(err => {
+                                        console.error("Erreur lors du remplissage de reviewOtherGame :", err);
+                                    });
+
+                                    
+                                });
                             });
                         });
                     });
