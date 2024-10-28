@@ -96,27 +96,24 @@
         </div>
     </div>
 
-    <!-- Section Informations personnelles -->
-    <div class="section-title">Informations personnelles</div>
-    <div class="info-section">
-        <p>Email : <span id="email_user"><%= user.mail_user %></span></p>
-        <p>Mot de passe : <span id="mdp_user">**********</span></p> <!-- %= user.mdp_user %-->
-        <!--<p>Date de naissance : <span id="date_birth_user">date_birth_user</span></p>-->
-    </div>
-
-    <!-- Section Mes derniers avis -->
-    <div class="section-title">Mes derniers avis</div>
-    <div class="reviews-section">
-        <div class="review">
-            <h3>Titre du jeu</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tempus sapien nec quam consequat, in sollicitudin sem viverra.</p>
-        </div>
-        <div class="review">
-            <h3>Titre du jeu</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tempus sapien nec quam consequat, in sollicitudin sem viverra.</p>
-        </div>
-    </div>
+<!-- Section Mes derniers avis -->
+<div class="section-title">Mes derniers avis</div>
+<div class="reviews-section">
+    <% if (reviews && reviews.length > 0) { %>
+        <% reviews.forEach(function(review) { %>
+            <div class="review">
+                <h3><%= review.titre %></h3>
+                <p><%= review.avis_user %></p> <!-- Utiliser `avis_user` ici -->
+                <p>Note : <%= review.note_user %>/5</p> <!-- Utiliser `note_user` ici -->
+            </div>
+        <% }); %>
+    <% } else { %>
+        <p>Vous n'avez pas encore laissé d'avis.</p>
+    <% } %>
 </div>
+
+</div>
+
 
 </body>
 </html>
