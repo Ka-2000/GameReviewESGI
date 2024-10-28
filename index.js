@@ -4,6 +4,7 @@ const ejs = require('ejs');
 const path = require('path');  
 const routeur = require('./routes/route.js');
 const ctrlAuth = require('./controllers/authController'); // Assure-toi d'importer le contrôleur
+const ctrlJeu = require('./controllers/ControlJeu');
 
 // Initialiser l'application
 let app = express();
@@ -88,7 +89,7 @@ app.get('/register', (req, res) => {
 app.post('/connexion', ctrlAuth.login); // Gère les soumissions de formulaire de connexion
 app.post('/register', ctrlAuth.register);
 
-
+app.get('/jeu/:id', ctrlJeu.afficher_infosJeu);
 
 // Utiliser le routeur pour d'autres routes
 app.use('/GameReviewESGI', routeur);
