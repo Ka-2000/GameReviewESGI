@@ -130,3 +130,47 @@ exports.delete_account = (req, res) => {
     });
 };
 
+exports.submit_review = (req, res, id) => {
+    const user = req.session.user;
+
+    if (!user) {
+        return res.redirect('/connexion');
+    }
+
+    const { avis_user, note_user } = req.body; // Ensure these match the form field names
+    let ID_commentaire = 0;
+
+    const query = 'INSERT INTO commentaires (ID_commentaire, avis_user, note_user) VALUES (?, ?, ?)';
+    db.query(query, [ID_commentaire, avis_user, note_user], (error, results) => {
+        if (error) {
+            console.error("Erreur lors de l'ajout de l'avis:", error);
+            return res.status(500).send("Erreur lors de l'ajout de l'avis");
+        }
+
+        console.log("Avis ajouté avec succès:", results);
+        ID_commentaire = results.insertId; // Retrieve the last inserted ID
+
+        const query2 = 'INSERT INTO utilisateur_commentaires (ID_utilisateur_commentaires, ID_user, ID_commentaire) VALUES (?, ?, ?)';
+        db.query(query2, [null, user.ID_user, ID_commentaire], (error, results) => {
+            if (error) {
+                console.error("Erreur lors de l'ajout de l'avis:", error);
+                return res.status(500).send("Erreur lors de l'ajout de l'avis");
+            }
+
+            console.log("Avis ajouté avec succès:", results);
+
+            // Insert into jeu_commentaires with the game ID passed as `id`
+            const query3 = 'INSERT INTO jeu_commentaires (ID_jeu_commentaire, ID_jeu, ID_commentaire) VALUES (?, ?, ?)';
+            db.query(query3, [null, id, ID_commentaire], (error, results) => {
+                if (error) {
+                    console.error("Erreur lors de l'ajout de l'avis:", error);
+                    return res.status(500).send("Erreur lors de l'ajout de l'avis");
+                }
+
+                console.log("Avis ajouté avec succès:", results);
+                return res.redirect('/jeu/' + id); // Redirect correctly to the game's page
+            });
+        });
+    });
+};
+

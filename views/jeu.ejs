@@ -211,26 +211,26 @@
     <% } %>
 
 <!-- Formulaire pour laisser un avis -->
-    <div class="review-form">
-        <h3>Laisser un avis</h3>
-        <form action="/submit-review" method="POST">
-            <label for="rating">Note (sur 5) :</label>
-            <select name="rating" id="rating" required>
-                <option value="5">5 ★★★★★</option>
-                <option value="4">4 ★★★★☆</option>
-                <option value="3">3 ★★★☆☆</option>
-                <option value="2">2 ★★☆☆☆</option>
-                <option value="1">1 ★☆☆☆☆</option>
-            </select>
+<div class="review-form">
+    <h3>Laisser un avis</h3>
+    <form action="/jeu/<%= id %>/submit_review" method="POST"> <!-- Use the passed ID -->
+        <label for="rating">Note (sur 5) :</label>
+        <select name="note_user" id="rating" required>
+            <option value="5">5 ★★★★★</option>
+            <option value="4">4 ★★★★☆</option>
+            <option value="3">3 ★★★☆☆</option>
+            <option value="2">2 ★★☆☆☆</option>
+            <option value="1">1 ★☆☆☆☆</option>
+        </select>
 
-            <label for="reviewText">Votre avis :</label>
-            <textarea id="reviewText" name="reviewText" rows="4" placeholder="Partagez votre expérience avec ce jeu"
-            required></textarea>
+        <label for="reviewText">Votre avis :</label>
+        <textarea id="reviewText" name="avis_user" rows="4" placeholder="Partagez votre expérience avec ce jeu" required></textarea>
 
-            <button type="submit">Envoyer</button>
-        </form>
-    </div>
+        <button type="submit">Envoyer</button>
+    </form>
 </div>
+
+
 
 <div class="related-games">
     <h2 class="section-title">De la même catégorie</h2>

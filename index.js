@@ -89,8 +89,20 @@ app.get('/delete_account', ctrlAuth.delete_account);
 
 
 
-app.get('/jeu/:id', ctrlJeu.afficher_infosJeu);
 
+
+app.post('/jeu/:id/submit_review', (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/connexion');
+    } else {
+        const id = req.params.id; // Retrieve ID from URL parameter
+        console.log("ID du jeu:", id);
+        if (!id) {
+            return res.status(400).send("ID du jeu est manquant.");
+        }
+        ctrlAuth.submit_review(req, res, id);
+    }
+});
 
 // ** Ajout de la route POST ici **
 app.post('/connexion', ctrlAuth.login); // Gère les soumissions de formulaire de connexion
