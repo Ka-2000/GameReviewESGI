@@ -71,7 +71,6 @@
             margin-right: 0;
         }
         .reviews-section .review h3 a {
-            margin: 0;
             color: #ff6600;
         }
         .delete_account {
@@ -100,6 +99,7 @@
             <p class="username"><%= user.username %></p>
             <!--<p>Inscrit depuis le <span id="date_inscription_user">date_inscription_user</span></p>-->
             <p><span id="nb_avis_user"><%= user.nb_avis %></span> avis</p>
+            <p><span >Email : </span><%= user.mail_user %></span></p>
         </div>
         <div class="delete_account">
             <a href="/delete_account">Supprimer mon compte</a>
