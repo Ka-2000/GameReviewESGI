@@ -51,8 +51,14 @@
         .info-section p {
             margin: 5px 0;
         }
+        .reviews-section{
+            background-color: #d6d6d6;
+        }
         .reviews-section .review {
             display: inline-block;
+            background-color: #505050;
+            padding: 5px;
+            border-radius: 5px;
             width: 45%;
             margin-right: 5%;
             margin-bottom: 10px;
@@ -102,9 +108,10 @@
     <% if (reviews && reviews.length > 0) { %>
         <% reviews.forEach(function(review) { %>
             <div class="review">
-                <h3><a href="/jeu/<%= review.ID_jeu %>"><%= review.titre %></a></h3>
-                <p><%= review.avis_user %></p> <!-- Utiliser `avis_user` ici -->
-                <p>Note : <%= review.note_user %>/5</p> <!-- Utiliser `note_user` ici -->
+                <h3><a href="/jeu/<%= review.ID_jeu %>#reviews-list"><%= review.titre %></a></h3>
+                <!-- TODO : l'ID du jeu ne s'affiche pas dans l'URL. Il faut corriger le bug-->
+                <p style="color: white;"><%= review.avis_user %></p> <!-- Utiliser `avis_user` ici -->
+                <p style="color: white;">Note : <%= review.note_user %>/5</p> <!-- Utiliser `note_user` ici -->
             </div>
         <% }); %>
     <% } else { %>
