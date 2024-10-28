@@ -29,7 +29,7 @@
             background-color: white;
             border: 1px solid #ccc;
             padding: 10px;
-            width: 23%;
+            width: 17%;
             margin-bottom: 20px;
             box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
         }
@@ -49,19 +49,53 @@
             color: #f5a623;
         }
         .game-card a {
-            display: block;
+            display: block;/* Pour que le lien prenne toute la largeur */
             text-align: right;
             color: #ff6600;
             text-decoration: none;
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 5px;
+        }
+
+        .nouveautes-title {
+            position: relative;  /* Ajout pour le positionnement relatif */
+            background-color: #ff6600;
+            color: white;
+            padding: 10px;
+            display: flex;      /* Pour un meilleur alignement */
+            align-items: center;
+        }
+
+        .rotating-badge {
+            position: relative;
+            top: 50%;          /* Centre verticalement */
+            transform: translateY(-50%);  /* Ajustement du centrage */
+            left: 70px;       /* Distance par rapport à la droite */
+            background: #ff0000;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            animation: rotate 5s infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            5% { transform: rotate(-15deg); }
+            10% { transform: rotate(15deg); }
+            15% { transform: rotate(-15deg); }
+            20% { transform: rotate(0deg); }
+            100% { transform: rotate(0deg); }
         }
     </style>
 </head>
 <body>
 
 <div class="section">
-    <h2>Nouveautés</h2><!-- Jeux sortis uniquement en 2024 -->
+    <h2 class="nouveautes-title"><!-- Jeux sortis uniquement en 2024 -->
+        Nouveautés 
+        <span class="rotating-badge">Sorties 2024</span>
+    </h2>
     <div class="games-container">
         <% if (gamesRecentlyAdded && gamesRecentlyAdded.length > 0) { %>
             <% gamesRecentlyAdded.forEach(function(gameRecentlyAdded, index) { %>
