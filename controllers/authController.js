@@ -48,6 +48,7 @@ exports.login = (req, res) => {
     
                     if (results.length > 0) {
                         // Authentification réussie
+                        const ID_user = results[0].ID_user;
                         const mdp_user = results[0].mdp_user;
                         const mail_user = results[0].mail_user;
                         const url_image_user = results[0].url_image_user;
@@ -55,6 +56,7 @@ exports.login = (req, res) => {
     
                         // Créez une session utilisateur pour stocker les informations de l'utilisateur
                         req.session.user = { 
+                            ID_user,
                             username, 
                             is_connected: true,
                             mdp_user,
@@ -90,6 +92,32 @@ exports.register = (req, res) => {
         }
 
         return res.render('register', { message: 'Inscription réussie !' }); // Renvoyer à la page d'inscription avec un message de succès
+    });
+};
+
+
+exports.delete_account = (req, res) => {
+    const user = req.session.user;
+
+    if (!user) {
+        return res.redirect('/connexion');
+    }
+
+    const query = "DELETE FROM utilisateur WHERE ID_user = ?";
+    db.query(query, [user.ID_user], (error, results) => {
+        if (error) {
+            console.error("Erreur lors de la suppression de l'utilisateur:", error);
+            return res.status(500).send('Erreur lors de la suppression de l\'utilisateur');
+        }
+
+        console.log("Utilisateur supprimé avec succès:", results);
+        //print query with the user ID
+        console.log("Requête SQL:", query, [user.ID_user]);
+
+        // Déconnectez l'utilisateur en supprimant la session
+        req.session.destroy();
+
+        return res.redirect('/connexion');
     });
 };
 

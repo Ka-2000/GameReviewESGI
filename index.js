@@ -84,6 +84,13 @@ app.get('/register', (req, res) => {
     res.render('register');
 });
 
+//call delete_account controller
+app.get('/delete_account', ctrlAuth.delete_account);
+
+
+
+app.get('/jeu/:id', ctrlJeu.afficher_infosJeu);
+
 
 // ** Ajout de la route POST ici **
 app.post('/connexion', ctrlAuth.login); // Gère les soumissions de formulaire de connexion
