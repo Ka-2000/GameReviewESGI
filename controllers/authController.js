@@ -131,6 +131,8 @@ exports.delete_account = (req, res) => {
 };
 
 exports.submit_review = (req, res, id) => {
+    
+    //get the user session
     const user = req.session.user;
 
     if (!user) {
@@ -168,7 +170,7 @@ exports.submit_review = (req, res, id) => {
                 }
 
                 console.log("Avis ajouté avec succès:", results);
-                return res.redirect('/jeu/' + id); // Redirect correctly to the game's page
+                return res.redirect('/jeu/' + id);
             });
         });
     });

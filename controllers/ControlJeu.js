@@ -10,6 +10,8 @@ module.exports = {
             FROM jeux
             WHERE ID_jeu = ?
         `;
+
+        const user = req.session.user; // Get the user from the session
         try {
             bd.query(getGameDataQuery, [gameId], function (err, getGameResult) {
                 if (err) {
@@ -128,6 +130,7 @@ module.exports = {
                                     // Attendre que toutes les requêtes soient terminées
                                     Promise.all(otherGamePromises).then(() => {
                                         res.render('jeu', {
+                                            user,
                                             cover_url,
                                             titre,
                                             reviewAverage,
