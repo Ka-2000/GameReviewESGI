@@ -29,7 +29,7 @@ module.exports = {
                 }
                 console.log("Résultats : ", getGameResult);
             });
-        }
+        });
     }
 };
    
