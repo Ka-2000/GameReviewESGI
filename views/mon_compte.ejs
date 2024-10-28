@@ -111,7 +111,17 @@
                 <h3><a href="/jeu/<%= review.ID_jeu %>#reviews-list"><%= review.titre %></a></h3>
                 <!-- TODO : l'ID du jeu ne s'affiche pas dans l'URL. Il faut corriger le bug-->
                 <p style="color: white;"><%= review.avis_user %></p> <!-- Utiliser `avis_user` ici -->
-                <p style="color: white;">Note : <%= review.note_user %>/5</p> <!-- Utiliser `note_user` ici -->
+                <p style="color: white;">
+                    Note :
+                    <% for (let i = 1; i <= 5; i++) { %>
+                        <% if (i <= review.note_user) { %>
+                            <span style="color: gold;">&#9733;</span> <!-- étoile pleine -->
+                        <% } else { %>
+                            <span style="color: lightgray;">&#9733;</span> <!-- étoile vide -->
+                        <% } %>
+                    <% } %>
+                </p>
+                
             </div>
         <% }); %>
     <% } else { %>
