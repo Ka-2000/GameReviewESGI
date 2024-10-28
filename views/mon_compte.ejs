@@ -113,7 +113,6 @@
         <% reviews.forEach(function(review) { %>
             <div class="review">
                 <h3><a href="/jeu/<%= review.ID_jeu %>#reviews-list"><%= review.titre %></a></h3>
-                <!-- TODO : l'ID du jeu ne s'affiche pas dans l'URL. Il faut corriger le bug-->
                 <p style="color: white;"><%= review.avis_user %></p> <!-- Utiliser `avis_user` ici -->
                 <p style="color: white;">
                     Note :
