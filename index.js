@@ -4,6 +4,7 @@ const ejs = require('ejs');
 const path = require('path');  
 const routeur = require('./routes/route.js');
 const ctrlAuth = require('./controllers/authController'); // Assure-toi d'importer le contrôleur
+const ctrlJeu = require('./controllers/ControlJeu');
 
 // Initialiser l'application
 let app = express();
@@ -82,6 +83,13 @@ app.get('/register', (req, res) => {
     // If not logged in, render the registration page
     res.render('register');
 });
+
+//call delete_account controller
+app.get('/delete_account', ctrlAuth.delete_account);
+
+
+
+app.get('/jeu/:id', ctrlJeu.afficher_infosJeu);
 
 
 // ** Ajout de la route POST ici **

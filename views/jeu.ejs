@@ -121,6 +121,45 @@
             font-weight: bold;
             margin-top: 10px;
         }
+        .review-form {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .review-form h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .review-form label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        .review-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+        }
+        .review-form select,
+        .review-form button {
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .review-form button {
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .review-form button:hover {
+            background-color: #e65c00;
+        }
     </style>
 </head>
 <body>
@@ -170,6 +209,27 @@
         <p>Aucun avis n'a été ajouté</p>
         <a href="" class="btn">Écrire un avis</a>
     <% } %>
+
+<!-- Formulaire pour laisser un avis -->
+    <div class="review-form">
+        <h3>Laisser un avis</h3>
+        <form action="/submit-review" method="POST">
+            <label for="rating">Note (sur 5) :</label>
+            <select name="rating" id="rating" required>
+                <option value="5">5 ★★★★★</option>
+                <option value="4">4 ★★★★☆</option>
+                <option value="3">3 ★★★☆☆</option>
+                <option value="2">2 ★★☆☆☆</option>
+                <option value="1">1 ★☆☆☆☆</option>
+            </select>
+
+            <label for="reviewText">Votre avis :</label>
+            <textarea id="reviewText" name="reviewText" rows="4" placeholder="Partagez votre expérience avec ce jeu"
+            required></textarea>
+
+            <button type="submit">Envoyer</button>
+        </form>
+    </div>
 </div>
 
 <div class="related-games">
