@@ -60,7 +60,7 @@
         .reviews-section .review:last-child {
             margin-right: 0;
         }
-        .reviews-section .review h3 {
+        .reviews-section .review h3 a {
             margin: 0;
             color: #ff6600;
         }
@@ -102,7 +102,7 @@
     <% if (reviews && reviews.length > 0) { %>
         <% reviews.forEach(function(review) { %>
             <div class="review">
-                <h3><%= review.titre %></h3>
+                <h3><a href="/jeu/<%= review.ID_jeu %>"><%= review.titre %></a></h3>
                 <p><%= review.avis_user %></p> <!-- Utiliser `avis_user` ici -->
                 <p>Note : <%= review.note_user %>/5</p> <!-- Utiliser `note_user` ici -->
             </div>

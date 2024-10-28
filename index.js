@@ -56,6 +56,7 @@ app.get('/mon_compte', (req, res) => {
         // Query to get the user's reviews including game title, review, and note
         const getReviewOfUserQuery = `
         SELECT
+            j.ID_jeu,
             j.titre,
             c.avis_user,
             c.note_user
