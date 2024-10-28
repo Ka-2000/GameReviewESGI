@@ -88,5 +88,54 @@ module.exports = {
             console.error("Erreur inattendue:", error.message);  // Affiche toute autre erreur
             res.status(500).send("Une erreur inattendue s'est produite.");
         }
+    },
+
+    ajouterCommentaire: function (req, res) {
+        const gameId = req.params.id;
+        const userId = req.session.userID; // On suppose que l'utilisateur est connecté et que son ID est dans la session
+        const { note, avis } = req.body;
+
+        if (!userId) {
+            return res.status(401).send("Veuillez vous connecter pour poster un avis.");
+        }
+
+        // Insertion du commentaire dans la table `commentaires`
+        const insertCommentQuery = `
+            INSERT INTO commentaires (avis_user, note_user)
+            VALUES (?, ?)
+        `;
+        bd.query(insertCommentQuery, [avis, note], function (err, result) {
+            if (err) {
+                console.error("Erreur lors de l'insertion du commentaire :", err);
+                return res.status(500).send("Erreur lors de l'insertion du commentaire.");
+            }
+            const commentId = result.insertId;
+
+            // Association du commentaire avec le jeu et l'utilisateur
+            const insertGameCommentQuery = `
+                INSERT INTO jeu_commentaires (ID_jeu, ID_commentaire)
+                VALUES (?, ?)
+            `;
+            bd.query(insertGameCommentQuery, [gameId, commentId], function (err) {
+                if (err) {
+                    console.error("Erreur lors de l'association du commentaire avec le jeu :", err);
+                    return res.status(500).send("Erreur lors de l'association du commentaire avec le jeu.");
+                }
+
+                const insertUserCommentQuery = `
+                    INSERT INTO utilisateur_commentaires (ID_user, ID_commentaire)
+                    VALUES (?, ?)
+                `;
+                bd.query(insertUserCommentQuery, [userId, commentId], function (err) {
+                    if (err) {
+                        console.error("Erreur lors de l'association du commentaire avec l'utilisateur :", err);
+                        return res.status(500).send("Erreur lors de l'association du commentaire avec l'utilisateur.");
+                    }
+
+                    // Succès
+                    res.status(200).send("Commentaire ajouté avec succès.");
+                });
+            });
+        });
     }
 };

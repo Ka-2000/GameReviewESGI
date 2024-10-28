@@ -76,13 +76,19 @@ routeur.get('/mon_compte', (req, res) => {
     res.render('register');  // Render the register.ejs from the 'views' folder
 });
 
-
-
+// Route pour traiter l'inscription
 routeur.post('/register', ctrlAuth.register);
 
 // Partie Recherche
 routeur.get('/recherche', ctrlRecherche.afficher_recherche)
 .get('/', ctrlRecherche.afficher_recherche)
+
+// Envoyer un commentaire
+const router = express.Router();// Créer un routeur Express
+const ControlJeu = require('../controllers/ControlJeu');
+
+router.get('/jeu/:id', ControlJeu.afficher_infosJeu);// Récupère les informations du jeu
+router.post('/jeu/:id/commentaire', ControlJeu.ajouterCommentaire);// Ajoute un commentaire au jeu
 
 
 module.exports = routeur;
