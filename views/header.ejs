@@ -28,10 +28,18 @@
             height: 50px;
             cursor: pointer;
         }
+
+        header .search-bar input {
+            width: 95%;
+            padding: 10px;
+            border: 5px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
         header .rechercher {
             background-color: #0084ff;
             color: white;
-            padding: 10px 10px;
+            padding: 5px 10px;
             text-decoration: none;
             border-radius: 5px;
             cursor: pointer;
@@ -39,9 +47,6 @@
         }
         header .rechercher:hover {
             background-color: #0068c9; /* Couleur plus foncée au survol */
-        }
-        .mon-compte-container {
-            order: 3;
         }
         header .connexion {
             background-color: #ff6600;
@@ -144,12 +149,15 @@
 <body>
 
 <header>
-    <!-- Groupe icon + rechercher -->
+    <!-- Groupe icon-->
     <div class="left-group">
-        <a href="http://localhost:3000/Connexion">
-            <img src="/icon.png" alt="Logo" class="icon">
-        </a>
-        <a href="http://localhost:3000/Recherche" class="rechercher">Rechercher des jeux</a>
+        <div class="search-bar"></div>
+            <a href="http://localhost:3000/Connexion">
+                <img src="/icon.png" alt="Logo" class="icon">
+            </a>
+            <input type="text" id="search-input" placeholder="Rechercher un jeu">
+            <button class="rechercher">Rechercher</button>
+        </div>
     </div>
 
     <!-- Bouton connexion reste à droite -->
