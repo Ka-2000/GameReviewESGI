@@ -5,6 +5,7 @@ const path = require('path');
 const routeur = require('./routes/route.js');
 const ctrlAuth = require('./controllers/authController'); // Assure-toi d'importer le contrôleur
 const ctrlJeu = require('./controllers/ControlJeu');
+const db = require('./connexion/loading'); // Importer la connexion à la base de données
 
 // Initialiser l'application
 let app = express();
@@ -51,16 +52,39 @@ app.get('/accueil', (req, res) => {
 app.get('/recherche', (req, res) => {
     res.render('recherche');
 });
-
 app.get('/mon_compte', (req, res) => {
     if (!req.session.user) {
         return res.redirect('/connexion');
-    }
-    else {
+    } else {
         const user = req.session.user;
-        res.render('mon_compte', { user });
+
+        // Query to get the user's reviews including game title, review, and note
+        const getReviewOfUserQuery = `
+        SELECT
+            j.titre,
+            c.avis_user,
+            c.note_user
+        FROM commentaires c
+            LEFT JOIN jeu_commentaires jc ON jc.ID_commentaire = c.ID_commentaire
+            LEFT JOIN utilisateur_commentaires uc ON uc.ID_commentaire = c.ID_commentaire
+            LEFT JOIN jeux j ON j.ID_jeu = jc.ID_jeu
+        WHERE uc.ID_user = ?;`;
+        
+        db.query(getReviewOfUserQuery, [user.ID_user], (error, results) => {
+            if (error) {
+                console.error("Erreur lors de la récupération des avis de l'utilisateur:", error);
+                return res.status(500).send("Erreur lors de la récupération des avis de l'utilisateur");
+            }
+
+            console.log("Avis de l'utilisateur récupérés avec succès:", results);
+
+            // Render the view with user and review data
+            res.render('mon_compte', { user, reviews: results });
+        });
     }
 });
+
+
 
 app.get('/connexion', (req, res) => {
     // Check if the user is already logged in
@@ -71,6 +95,10 @@ app.get('/connexion', (req, res) => {
 
     // If not logged in, render the connexion page
     res.render('connexion');
+});
+app.get('/deconnexion', (req, res) => {
+    req.session.destroy(); // Supprimer la session
+    res.redirect('/connexion');
 });
 
 app.get('/register', (req, res) => {

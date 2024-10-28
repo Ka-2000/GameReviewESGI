@@ -168,6 +168,7 @@
 
     // Fonction de déconnexion
     function logout() {
+        window.location.href = "/deconnexion"; // Redirige vers la page de déconnexion
         // Mettre à jour user.is_connected à false et masquer le menu
         isUserLoggedIn = false;
         //TODO : envoyer au serveur la valeur de user.is_connected puis actualiser la page.
