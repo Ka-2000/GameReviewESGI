@@ -104,24 +104,17 @@
             display: block;
         }
         /* Style de l'encadré publicitaire */
-        .advert-box {
-            background-color: rgb(255, 0, 200); /* Couleur jaune pour attirer l'attention */
-            padding: 10px 10px;
-            color: black;
-            font-weight: bold;
-            border-radius: 5px;
+        .advert {
             position: absolute;
-            top: 1.5%; /* En dessous du header */
+            top: 0.1%;
             left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            gap: 10px; /* Espace entre l'image et le texte */
-            animation: slideIn 2s ease forwards, pulse 2s infinite 2s;
+            transform: translateX(-50%) translateY(0);
+            animation: slideIn 2s ease forwards, pulse 2s infinite 2s; /* Applique les animations */
         }
-        .advert-box img {
-            width: 60px; /* Ajuste la taille de l'image */
+
+        .advert img {
+            width: 200px; /* Ajuste la taille de l'image */
             height: auto;
-            border-radius: 0px;
         }
 
         /* Animation de glissement vers le haut */
@@ -170,9 +163,8 @@
         </div>
     </div>
     <!-- Encadré publicitaire -->
-    <div class="advert-box">
-        <img src="/pub_viagra.jpg" alt="Publicité">
-        Promotion spéciale : -20% sur notre viagra !
+    <div class="advert">
+        <img src="/pub.png" alt="Publicité">
     </div>
 </header>
 
