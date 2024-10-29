@@ -1,6 +1,3 @@
-// Regroupement de toute les routes en fonction du nombre de page qu'il y aura. 
-// Routages pour la partie Accueil - Medecin - Mutuelle - Maladie - Ordonnance - Patient - Stock
-
 // création du routeur Express pour ce module
 const express = require('express');
 const routeur = express.Router();
