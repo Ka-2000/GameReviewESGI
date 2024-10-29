@@ -6,6 +6,7 @@ const routeur = require('./routes/route.js');
 const ctrlAuth = require('./controllers/authController'); // Assure-toi d'importer le contrôleur
 const ctrlJeu = require('./controllers/ControlJeu');
 const ctrlAccueil = require('./controllers/ControlAccueil.js');
+var ctrlRecherche = require('./controllers/ControlRecherche');
 const db = require('./connexion/loading'); // Importer la connexion à la base de données
 
 // Initialiser l'application
@@ -44,9 +45,8 @@ app.get('/', (req, res) => {
 
 app.get('/accueil', ctrlAccueil.afficher_accueil);
 
-app.get('/recherche', (req, res) => {
-    res.render('recherche');
-});
+app.get('/recherche', ctrlRecherche.afficher_recherche);
+
 app.get('/mon_compte', (req, res) => {
     if (!req.session.user) {
         return res.redirect('/connexion');

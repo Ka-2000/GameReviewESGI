@@ -146,17 +146,19 @@
     <!-- Groupe icon-->
     <div class="left-group">
         <div class="search-bar"></div>
-            <a href="http://localhost:3000/Connexion">
+            <a href="/Connexion">
                 <img src="/icon.png" alt="Logo" class="icon">
             </a>
-            <input type="text" id="search-input" placeholder="Rechercher un jeu">
-            <button class="rechercher">Rechercher</button>
+            <form method="GET" action="/recherche">
+                <input type="text" id="search-input" placeholder="Rechercher un jeu" name="search" minlength="3">
+                <button type="submit" class="rechercher">Rechercher</button>
+            </form>
         </div>
     </div>
 
     <!-- Bouton connexion reste à droite -->
     <div id="account-menu" class="mon-compte-container">
-        <a href="http://localhost:3000/Connexion" id="user-action" class="connexion">Connexion</a>
+        <a href="/Connexion" id="user-action" class="connexion">Connexion</a>
         <div id="dropdownMenu" class="dropdown-content">
             <a href="/mon_compte">Gestion de compte</a>
             <a class="deconnexion" onclick="logout()" >Se déconnecter</a>

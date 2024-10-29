@@ -12,250 +12,76 @@
             padding: 0;
             background-color: #f2f2f2;
         }
-
-        /* Barre de recherche */
-        .search-bar {
-            margin-top: 80px; /* Décaler la barre de recherche de 80 pixels vers le bas */
-            padding: 6px;
-            background-color: #fff;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .section {
+            margin: 20px;
         }
-
-        .search-bar input {
-            width: 95%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        .search-bar button {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-        }
-
-        .search-bar button img {
-            width: 25px;
-            height: 25px;
-        }
-
-        /* Section des filtres */
-        .filter-section h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-
-        .filter-section button {
+        .section h2 {
             background-color: #ff6600;
             color: white;
             padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-right: 10px;
         }
-
-        /* Style pour les plateformes et les nouveautés */
-        .filter-section {
-            background-color: #4c4c4c;
-            color: white;
-            padding: 10px;
-            position: relative;
-            width: 100%;
-            display: none;
-            top: 0;
-        }
-
-        .filter-item {
-            margin-bottom: 0px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        input[type="checkbox"], input[type="radio"] {
-            margin-right: 10px;
-        }
-
-        /* Style pour l'animation des étoiles */
-        .star-rating {
-            display: flex; /* Utiliser flexbox pour aligner les étoiles */
-            justify-content: flex-start; /* Aligner à gauche */
-            margin-left: 0; /* Optionnel : enlever toute marge à gauche */
-        }
-
-        .star {
-            font-size: 24px;
-            color: #ddd; /* Étoile désactivée */
-            cursor: pointer;
-        }
-
-        .star:hover,
-        .star:hover ~ .star {
-            color: #ff9800; /* Couleur au survol */
-        }
-
-        .star.selected {
-            color: #ff9800; /* Couleur après sélection */
-        }
-
-        /* Résultats */
-        .results-section {
-            padding: 20px;
-            background-color: white;
-            margin-top: 20px;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .result-item {
+        .games-container {
             display: flex;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #ccc;
+            justify-content: space-between;
+            flex-wrap: wrap;
         }
-
-        .result-item img {
-            width: 50px;
-            height: 50px;
-            margin-right: 20px;
+        .game-card {
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 17%;
+            margin-bottom: 20px;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
         }
-
-        .result-item h3 {
-            font-size: 16px;
-            margin: 0;
+        .game-card img {
+            width: 100%;
+            height: auto;
         }
-
-        .result-item p {
-            font-size: 12px;
+        .game-card h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .game-card p {
             color: #666;
-            margin: 0;
+            font-size: 14px;
+        }
+        .game-card .rating {
+            color: #f5a623;
+        }
+        .game-card a {
+            display: block;/* Pour que le lien prenne toute la largeur */
+            text-align: right;
+            color: #ff6600;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 5px;
         }
     </style>
 </head>
 <body>
 
-<!-- Barre de recherche -->
-<div class="search-bar">
-    <input type="text" id="search-input" placeholder="Rechercher un jeu">
-    <button onclick="toggleFilters()">
-        <img src="/filters.png" alt="Filtre">
-    </button>
-</div>
 
-<!-- Section des filtres -->
-<div class="filter-section", id = "filters">
-    <div class="filter-item">
-        <h4>Plateformes</h4>
-        <label>
-            <input type="checkbox" name="platforms" value="PC"> PC
-        </label>
-        <label>
-            <input type="checkbox" name="platforms" value="Xbox"> Xbox
-        </label>
-        <label>
-            <input type="checkbox" name="platforms" value="Playstation"> PlayStation
-        </label>
-    </div>
 
-    <div class="filter-item">
-        <h4>Nouveauté (date de sortie en 2024)</h4>
-        <label>
-            <input type="radio" name="nouveaute" value="Oui"> Oui
-        </label>
-        <label>
-            <input type="radio" name="nouveaute" value="Non"> Non
-        </label>
-        <label>
-            <input type="radio" name="nouveaute" value="Tous" checked> Tous
-        </label>
-    </div>
-
-    <div class="filter-item">
-        <h4>Avis moyen minimum</h4>
-        <div class="star-rating">
-            <span class="star" data-value="1">&#9733;</span>
-            <span class="star" data-value="2">&#9733;</span>
-            <span class="star" data-value="3">&#9733;</span>
-            <span class="star" data-value="4">&#9733;</span>
-            <span class="star" data-value="5">&#9733;</span>
+    <div class="section">
+        <h2 class="nouveautes-title">Résultats</h2>
+        <div class="games-container">
+            <% if (getGamesResult && getGamesResult.length > 0) { %>
+                <% getGamesResult.forEach(function(getGameResult, index) { %>
+                    <div class="game-card">
+                        <img src="/<%= getGameResult.url_image_jeu %>" alt="Cover">
+                        <h3><%= getGameResult.titre %></h3>
+                        <p class="rating">
+                            <%= gamesAverage[index].avgNote.toFixed(1) %> ★ (<%= gamesAverage[index].countNote %>)
+                        </p>
+                        <p><%= getGameResult.description %></p>
+                        <a href="jeu/<%= getGameResult.ID_jeu %>">voir plus</a>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p>Aucun jeu trouvé</p>
+            <% } %>
         </div>
     </div>
-</div>
-
-
-
-<!-- Section des résultats -->
-<div class="results-section" id="results">
-    <h2>Résultats</h2>
-    <p id="result-count">X trouvés</p>
-
-    <!-- TODO : Résultat pour chaque jeu 
-    <div class="result-item">
-        <img src="/<%= displayedGame.url_image_jeu %>" alt="Cover du jeu">
-        <div class="game-info">
-            <h3>%= titre %</h3>
-            <p class="rating">
-                <%= displayedGames[index].avgNote.toFixed(1) %> ★ (<%= displayedGames[index].countNote %>)
-            </p>
-            <p><%= game_description %></p>
-        </div>
-    </div>-->
-</div>
-
-<script>
-    function toggleFilters() {
-        var filterSection = document.getElementById('filters');
-        if (filterSection.style.display === 'block') {
-            filterSection.style.display = 'none';
-        } else {
-            filterSection.style.display = 'block';
-        }
-    }
-    document.querySelectorAll('.star').forEach(star => {
-    star.addEventListener('mouseover', function() {
-        // Colorier toutes les étoiles jusqu'à celle survolée
-        this.style.color = '#ff9800';
-        let previousStars = this.previousElementSibling;
-        while (previousStars) {
-            previousStars.style.color = '#ff9800';
-            previousStars = previousStars.previousElementSibling;
-        }
-    });
-
-    star.addEventListener('mouseout', function() {
-        // Réinitialiser toutes les étoiles sauf celles sélectionnées
-        document.querySelectorAll('.star').forEach(s => {
-            if (!s.classList.contains('selected')) {
-                s.style.color = '#ddd';
-            }
-        });
-    });
-
-    star.addEventListener('click', function() {
-        // Désélectionner les autres étoiles
-        document.querySelectorAll('.star').forEach(s => s.classList.remove('selected'));
-        
-        // Sélectionner cette étoile
-        this.classList.add('selected');
-        
-        // Colorier toutes les étoiles jusqu'à celle sélectionnée
-        this.style.color = '#ff9800';
-        let previousStars = this.previousElementSibling;
-        while (previousStars) {
-            previousStars.classList.add('selected');
-            previousStars.style.color = '#ff9800';
-            previousStars = previousStars.previousElementSibling;
-        }
-    });
-});
-
-</script>
 
 </body>
 </html>

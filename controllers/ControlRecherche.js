@@ -1,35 +1,56 @@
-var modelRecherche = require('../models/ModelRecherche');
 const { get } = require('../routes/route');
+var bd = require('../connexion/loading'); // DB connection
+
 module.exports = {
     afficher_recherche: function (req, res) {
-        modelRecherche.afficher_recherche(function (data, data2, data3) {
+        const searchValue = req.query.search;
 
-            // Récupère toutes les infos des jeux à partir d'un titre recherché par l'utilisateur
-            const getGamesDataQuery = `
-                SELECT *
-                FROM jeux
-                WHERE titre LIKE ?
-            `;
-            // Récupère getGamesDataQuery en ajoutant un filtre sur la date : jeux sortis après 2024-01-01
-            const getGameDateQueryNouveaute = getGamesDataQuery + ` AND date_de_sortie > '2024-01-01'`;
+        const getGamesDataQuery = `
+            SELECT * FROM jeux
+            WHERE titre LIKE ?;
+        `;
 
-            // Récupère getGamesDataQuery en ajoutant un filtre sur la note du jeu en fonction de la variable noteValue
-            const getGamesDateQueryNote = getGamesDataQuery + ` AND note_moyenne > ?`;
+        bd.query(getGamesDataQuery, [`%${searchValue}%`], function (err, getGamesResult) {
+            if (err) {
+                console.error("Erreur lors de l'exécution de la requête : ", err);
+                return;
+            }
 
-            // Ajoute des % avant et après le terme de recherche pour rechercher des jeux contenant le terme
-            const searchTerm = `%${userInput}%`;
-
-            //TODO : si la case Nouveauté est cochée, on utilise getGameDateQueryNouveaute
-            //TODO : on utilise getGamesDateQueryNote en fonction de la note minimale moyenne que l'utilisateur désire
-
-            bd.query(getGamesDataQuery, [searchTerm], function (err, getGameResult) {
-                if (err) {
-                    console.error("Erreur lors de l'exécution de la requête : ", err);
-                    return;
-                }
-                console.log("Résultats : ", getGameResult);
+            var gamesAverage = [];
+            var GamesPromises = getGamesResult.map(gameResult => {
+                const currentIdGame = gameResult.ID_jeu;
+                const gamesReview = `
+                    SELECT AVG(note_user) AS avg_note, COUNT(note_user) AS count_note
+                    FROM commentaires c
+                    LEFT JOIN jeu_commentaires jc ON jc.ID_commentaire = c.ID_commentaire
+                    WHERE jc.ID_jeu = ?;
+                `;
+            
+                return new Promise((resolve, reject) => {
+                    bd.query(gamesReview, [currentIdGame], function (err, result) {
+                        if (err) {
+                            console.error("Get review data SQL error:", err);
+                            reject(err);
+                        } else {
+                            const avgNote = result[0].avg_note || 0;  // Default to 0 if no average
+                            const countNote = result[0].count_note || 0; // Default to 0 if no count
+                            gamesAverage.push({ avgNote, countNote });
+                            resolve();
+                        }
+                    });
+                });
             });
+            
+            // Attendre que toutes les requêtes soient terminées
+            Promise.all(GamesPromises).then(() => {
+                res.render('recherche', {
+                    getGamesResult,
+                    gamesAverage
+                });
+            }).catch(err => {
+                console.error("Erreur lors du remplissage de recentlyAddedGames :", err);
+            });
+
         });
     }
 };
-   

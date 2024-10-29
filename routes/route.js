@@ -72,13 +72,10 @@ routeur.get('/mon_compte', (req, res) => {
     res.render('register');  // Render the register.ejs from the 'views' folder
 });
 
-
-
 routeur.post('/register', ctrlAuth.register);
 
 // Partie Recherche
-routeur.get('/recherche', ctrlRecherche.afficher_recherche)
-.get('/', ctrlRecherche.afficher_recherche)
+routeur.get('/recherche', ctrlRecherche.afficher_recherche);
 
 
 module.exports = routeur;
