@@ -132,45 +132,64 @@ exports.delete_account = (req, res) => {
 
 exports.submit_review = (req, res, id) => {
     
-    //get the user session
+    // Récupérer la session utilisateur
     const user = req.session.user;
 
     if (!user) {
         return res.redirect('/connexion');
     }
 
-    const { avis_user, note_user } = req.body; // Ensure these match the form field names
-    let ID_commentaire = 0;
+    const { avis_user, note_user } = req.body; // Doit correspondre aux noms des champs du formulaire
 
-    const query = 'INSERT INTO commentaires (ID_commentaire, avis_user, note_user) VALUES (?, ?, ?)';
-    db.query(query, [ID_commentaire, avis_user, note_user], (error, results) => {
+    // Vérifier si l'utilisateur a déjà laissé un avis pour ce jeu
+    const checkQuery = 'SELECT * FROM utilisateur_commentaires uc JOIN jeu_commentaires jc ON uc.ID_commentaire = jc.ID_commentaire WHERE uc.ID_user = ? AND jc.ID_jeu = ?';
+    
+    db.query(checkQuery, [user.ID_user, id], (error, results) => {
         if (error) {
-            console.error("Erreur lors de l'ajout de l'avis:", error);
-            return res.status(500).send("Erreur lors de l'ajout de l'avis");
+            console.error("Erreur lors de la vérification de l'avis:", error);
+            return res.status(500).send("Erreur lors de la vérification de l'avis");
         }
 
-        console.log("Avis ajouté avec succès:", results);
-        ID_commentaire = results.insertId; // Retrieve the last inserted ID
+        // Si un avis existe, ne pas autoriser l'ajout
+        if (results.length > 0) {
+            return res.status(403).send("Vous avez déjà laissé un avis pour ce jeu.");
+        }
 
-        const query2 = 'INSERT INTO utilisateur_commentaires (ID_utilisateur_commentaires, ID_user, ID_commentaire) VALUES (?, ?, ?)';
-        db.query(query2, [null, user.ID_user, ID_commentaire], (error, results) => {
+        // Aucun avis trouvé, procéder à l'ajout de l'avis
+        let ID_commentaire = 0;
+        const insertCommentQuery = 'INSERT INTO commentaires (ID_commentaire, avis_user, note_user) VALUES (?, ?, ?)';
+        
+        db.query(insertCommentQuery, [ID_commentaire, avis_user, note_user], (error, results) => {
             if (error) {
                 console.error("Erreur lors de l'ajout de l'avis:", error);
                 return res.status(500).send("Erreur lors de l'ajout de l'avis");
             }
 
             console.log("Avis ajouté avec succès:", results);
+            ID_commentaire = results.insertId;
 
-            // Insert into jeu_commentaires with the game ID passed as `id`
-            const query3 = 'INSERT INTO jeu_commentaires (ID_jeu_commentaire, ID_jeu, ID_commentaire) VALUES (?, ?, ?)';
-            db.query(query3, [null, id, ID_commentaire], (error, results) => {
+            const linkUserCommentQuery = 'INSERT INTO utilisateur_commentaires (ID_utilisateur_commentaires, ID_user, ID_commentaire) VALUES (?, ?, ?)';
+            
+            db.query(linkUserCommentQuery, [null, user.ID_user, ID_commentaire], (error, results) => {
                 if (error) {
-                    console.error("Erreur lors de l'ajout de l'avis:", error);
-                    return res.status(500).send("Erreur lors de l'ajout de l'avis");
+                    console.error("Erreur lors de l'ajout de l'avis utilisateur:", error);
+                    return res.status(500).send("Erreur lors de l'ajout de l'avis utilisateur");
                 }
 
-                console.log("Avis ajouté avec succès:", results);
-                return res.redirect('/jeu/' + id);
+                console.log("Avis utilisateur ajouté avec succès:", results);
+
+                // Associer le commentaire avec le jeu
+                const linkGameCommentQuery = 'INSERT INTO jeu_commentaires (ID_jeu_commentaire, ID_jeu, ID_commentaire) VALUES (?, ?, ?)';
+                
+                db.query(linkGameCommentQuery, [null, id, ID_commentaire], (error, results) => {
+                    if (error) {
+                        console.error("Erreur lors de l'ajout de l'avis pour le jeu:", error);
+                        return res.status(500).send("Erreur lors de l'ajout de l'avis pour le jeu");
+                    }
+
+                    console.log("Avis pour le jeu ajouté avec succès:", results);
+                    return res.redirect('/jeu/' + id);
+                });
             });
         });
     });
